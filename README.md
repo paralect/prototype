@@ -1,2 +1,4 @@
 Prototype CQRS/EventSourcing app
 ================================
+
+.
