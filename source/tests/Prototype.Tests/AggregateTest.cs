@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Abe.UnitTests;
 using NUnit.Framework;
 using Microsoft.Practices.Unity;
 using Prototype.Domain.Aggregates;

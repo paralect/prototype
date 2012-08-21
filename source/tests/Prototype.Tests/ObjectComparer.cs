@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
 
-namespace Abe.UnitTests
+namespace Prototype.Tests
 {
     /// <summary>
     /// Originally from:

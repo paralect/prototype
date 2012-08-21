@@ -59,8 +59,12 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Uniform">
+      <HintPath>..\..\..\libs\Uniform\Uniform.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Handlers\ViewHandlers\PatientViewHandler.cs" />
     <Compile Include="Platform\Domain\Aggregate.cs" />
     <Compile Include="Domain\Aggregates\Patient\Commands\CreatePatient.cs" />
     <Compile Include="Domain\Aggregates\Patient\Commands\DeletePatient.cs" />
@@ -114,8 +118,14 @@
     <Compile Include="Platform\Unity\UnityServiceLocator.cs" />
     <Compile Include="Platform\Utilities\IndexedEnumerable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stages.cs" />
+    <Compile Include="ViewDatabase.cs" />
+    <Compile Include="Views\PatientView.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Handlers\IndexHandlers\" />
+    <Folder Include="Handlers\WorkflowHandlers\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
