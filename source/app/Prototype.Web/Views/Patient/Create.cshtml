@@ -1,0 +1,41 @@
+﻿@model Prototype.Views.PatientView
+
+@{
+    ViewBag.Title = "Add Patient";
+}
+
+<h2>Patients</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+        <fieldset>
+            <legend>Patient Information</legend>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Name)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.Name)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Initials)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.Initials)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Level)
+            </div>
+            <div class="editor-field">
+                @Html.PasswordFor(m => m.Level)
+            </div>
+
+            <p>
+                <input type="submit" value="Add patient" />
+            </p>
+        </fieldset>
+    </div>
+}
