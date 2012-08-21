@@ -7,22 +7,28 @@
 <h2>Patients</h2>
 
 @Html.ActionLink("Add Patient", "Create", "Patient")
-
+<br/>
+<br/>
 <table>
     <tr>
         <th>Id</th>
         <th>Name</th>
         <th>Initials</th>
         <th>Level</th>
+        <th>Actions</th>
     </tr>
 
     @foreach(var patient in Model.Patients)
     {
         <tr>
-            <td>@patient.PatientId</td>
+            <td style="font-size: 9px; color: #bbbbbb;">@patient.PatientId</td>
             <td>@patient.Name</td>
             <td>@patient.Initials</td>
             <td>@patient.Level</td>
+            <td>
+                <a href="@Url.Action("Edit", "Patient", new { id = patient.PatientId })">Edit</a>
+                <a href="@Url.Action("Delete", "Patient", new { id = patient.PatientId })">Delete</a>
+            </td>
         </tr>
     }
 

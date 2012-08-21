@@ -10,24 +10,18 @@ namespace Prototype.Web.Controllers
 {
     public class PatientController : Controller
     {
-        [Dependency]
-        public ICommandBus Bus { get; set; }
-
-        [Dependency]
-        public MongoViewDatabase ViewDatabase { get; set; }
-
-/*        private readonly ICommandBus _bus;
+        private readonly ICommandBus _bus;
         private readonly MongoViewDatabase _viewDatabase;
 
         public PatientController(ICommandBus bus, MongoViewDatabase viewDatabase)
         {
             _bus = bus;
             _viewDatabase = viewDatabase;
-        }*/
+        }
 
         public ActionResult Index()
         {
-            var patients = ViewDatabase.Patients.FindAll().ToList();
+            var patients = _viewDatabase.Patients.FindAll().ToList();
 
             return View(new PatientPageViewModel
             {
@@ -43,7 +37,7 @@ namespace Prototype.Web.Controllers
         [HttpPost]
         public ActionResult Create(PatientView view)
         {
-            Bus.Send(new CreatePatient()
+            _bus.Send(new CreatePatient()
             {
                 Id = Guid.NewGuid().ToString(),
                 Initials = view.Initials,
@@ -53,18 +47,19 @@ namespace Prototype.Web.Controllers
                 SiteId = view.SiteId
             });
 
-            return View(view);
+            return RedirectToAction("Index");
         }
 
-        public ActionResult Edit()
+        public ActionResult Edit(String id)
         {
-            return View(new PatientView());
+            var patientView = _viewDatabase.Patients.FindOneById(id);
+            return View(patientView);
         }
 
         [HttpPost]
         public ActionResult Edit(PatientView view)
         {
-            Bus.Send(new UpdatePatient()
+            _bus.Send(new UpdatePatient()
             {
                 Id = view.PatientId,
                 Initials = view.Initials,
@@ -74,13 +69,13 @@ namespace Prototype.Web.Controllers
                 SiteId = view.SiteId
             });
 
-            return View(view);
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public ActionResult Delete(String patientId)
+        public ActionResult Delete(String id)
         {
-            Bus.Send(new DeletePatient(patientId, "Removed by user from Patient page"));
+            _bus.Send(new DeletePatient(id, "Removed by user from Patient page"));
             return RedirectToAction("Index");
         }
     }

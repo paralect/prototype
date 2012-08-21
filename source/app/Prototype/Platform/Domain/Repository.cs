@@ -46,14 +46,13 @@ namespace Prototype.Platform.Domain
                 throw new ArgumentException(String.Format(
                     "Aggregate ID was not specified when trying to get by id {0} aggregate", typeof(TAggregate).FullName));
 
+            var stream = _transitionStorage.GetTransitions(id, 0, int.MaxValue);
+
             var aggregate = AggregateCreator.CreateAggregateRoot<TAggregate>();
-            var state = AggregateCreator.CreateAggregateState(typeof (TAggregate));
-            aggregate.Setup(state);
+            var state = AggregateCreator.CreateAggregateState(typeof(TAggregate));
+            StateSpooler.Spool(state, stream.SelectMany(t => t.Events).Select(e => (IEvent)e.Data));
 
-            var fromVersion = 0;
-            var stream = _transitionStorage.GetTransitions(id, fromVersion, int.MaxValue);
-            StateSpooler.Spool(state, stream.SelectMany(t => t.Events).Select(e => (IEvent) e.Data));
-
+            aggregate.Setup(state, stream.Count == 0 ? 0 : stream.Last().Id.Version);
             return aggregate;
         }
 

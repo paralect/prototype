@@ -5,3 +5,37 @@
 }
 
 <h2>Edit Patient</h2>
+
+@using (Html.BeginForm()) {
+    <div>
+        <fieldset>
+            <legend>Patient Information</legend>
+            @Html.HiddenFor(m => m.PatientId)
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Name)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.Name)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Initials)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.Initials)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Level)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.Level)
+            </div>
+
+            <p>
+                <input type="submit" value="Edit" />
+            </p>
+        </fieldset>
+    </div>
+}
