@@ -8,5 +8,13 @@ namespace Prototype.Domain.Aggregates.Patient
         public void Handle(CreatePatient c)
         {
         }
+
+        public void Handle(UpdatePatient c)
+        {
+        }
+
+        public void Handle(DeletePatient c)
+        {
+        }
     }
 }

@@ -7,7 +7,7 @@ namespace Prototype.Platform.Domain.Transitions.InMemory
 {
     public class InMemoryTransitionRepository : ITransitionRepository
     {
-        private List<Transition> _transitions = new List<Transition>();
+        private readonly List<Transition> _transitions = new List<Transition>();
 
         public void SaveTransition(Transition transition)
         {

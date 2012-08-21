@@ -12,15 +12,15 @@ namespace Prototype.Domain.Aggregates.Patient
         public void On(PatientCreated e)
         {
             Id = e.Id;
-            DateOfBirth = e.DateOfBirth;
             Level = e.Level;
+            DateOfBirth = e.DateOfBirth;
         }
 
         public void On(PatientUpdated e)
         {
             Id = e.Id;
-            DateOfBirth = e.DateOfBirth;
             Level = e.Level;
+            DateOfBirth = e.DateOfBirth;
         }
     }
 }
