@@ -141,9 +141,6 @@
     <Content Include="Views\Patient\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Prototype\Prototype.csproj">
       <Project>{56CAF3FE-51AC-419B-82D2-82CA4A8242F2}</Project>
       <Name>Prototype</Name>

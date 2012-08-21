@@ -10,6 +10,6 @@ namespace Prototype.Web.Models
 
     public class PatientPageViewModel
     {
-        public List<PatientView> PatientView { get; set; }
+        public List<PatientView> Patients { get; set; }
     }
 }

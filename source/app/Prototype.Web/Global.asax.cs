@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
@@ -22,23 +18,6 @@ namespace Prototype.Web
 {
     public class PrototypeApplication : System.Web.HttpApplication
     {
-        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
-        {
-            filters.Add(new HandleErrorAttribute());
-        }
-
-        public static void RegisterRoutes(RouteCollection routes)
-        {
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
-            routes.MapRoute(
-                "Default", // Route name
-                "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
-            );
-
-        }
-
         protected void Application_Start()
         {
             var container = HttpApplicationUnityContext.Current;
@@ -50,20 +29,27 @@ namespace Prototype.Web
 
         private void ConfigureSettings(IUnityContainer container)
         {
-            var settings = new PrototypeSettings()
+            container.RegisterInstance(new PrototypeSettings()
             {
                 MongoEventsConnectionString = "mongodb://admin(admin):adminpwd0375@localhost:27017/prototype_events",
                 MongoViewConnectionString = "mongodb://admin(admin):adminpwd0375@localhost:27017/prototype_view"
-            };
-
-            container.RegisterInstance(settings);
+            });
         }
 
         private void ConfigureMvc(IUnityContainer container)
         {
             AreaRegistration.RegisterAllAreas();
-            RegisterGlobalFilters(GlobalFilters.Filters);
-            RegisterRoutes(RouteTable.Routes);
+
+            // Registering filters
+            GlobalFilters.Filters.Add(new HandleErrorAttribute());
+
+            // Registing routes
+            RouteTable.Routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            RouteTable.Routes.MapRoute(
+                "Default", // Route name
+                "{controller}/{action}/{id}", // URL with parameters
+                new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+            );
 
             // Configure resolver for MVC controllers, filters etc.
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
@@ -98,6 +84,8 @@ namespace Prototype.Web
             container.RegisterInstance<IEventBus>(new DispatcherEventBus(dispatcher));
             container.RegisterType<IRepository, Repository>();
             container.RegisterType(typeof(IRepository<>), typeof(Repository<>));
+
+            container.RegisterType<ICommandBus, CommandBus>();
         }
     }
 }

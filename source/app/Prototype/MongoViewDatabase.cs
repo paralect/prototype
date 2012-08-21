@@ -58,12 +58,12 @@ namespace Prototype
             return Database.GetCollection(collectionName).ToReadonly();
         }
 
-        protected ReadonlyMongoCollection GetCollection<TDocument>(String collectionName)
+        protected ReadonlyMongoCollection<TDocument> GetCollection<TDocument>(String collectionName)
         {
             return Database.GetCollection<TDocument>(collectionName).ToReadonly();
         }
 
-        public ReadonlyMongoCollection Patients
+        public ReadonlyMongoCollection<PatientView> Patients
         {
             get { return GetCollection<PatientView>(ViewCollections.Patients); }
         }

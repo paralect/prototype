@@ -126,6 +126,7 @@
     <Compile Include="Platform\Utilities\IndexedEnumerable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PrototypeSettings.cs" />
+    <Compile Include="CommandBus.cs" />
     <Compile Include="Stages.cs" />
     <Compile Include="ViewDatabase.cs" />
     <Compile Include="Views\PatientView.cs" />
