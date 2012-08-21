@@ -6,7 +6,7 @@ using Prototype.Platform.Dispatching;
 
 namespace Prototype.Platform.Domain
 {
-    public class Spooler
+    public class StateSpooler
     {
         private static readonly ConcurrentDictionary<MethodDescriptor, MethodInfo> _methodCache = new ConcurrentDictionary<MethodDescriptor, MethodInfo>();
 

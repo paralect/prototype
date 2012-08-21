@@ -13,6 +13,11 @@ namespace Prototype.Platform.Domain
         private ICommandMetadata _metadata = new CommandMetadata();
 
         /// <summary>
+        /// ID of aggregate
+        /// </summary>
+        public String Id { get; set; }
+
+        /// <summary>
         /// Command metadata
         /// </summary>
         public ICommandMetadata Metadata

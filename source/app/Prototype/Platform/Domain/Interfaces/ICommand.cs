@@ -1,3 +1,5 @@
+using System;
+
 namespace Prototype.Platform.Domain
 {
     /// <summary>
@@ -5,6 +7,7 @@ namespace Prototype.Platform.Domain
     /// </summary>
     public interface ICommand
     {
+        String Id { get; set; }
         ICommandMetadata Metadata { get; set; }
     }
 }

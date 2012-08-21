@@ -93,7 +93,7 @@ namespace Prototype.Platform.Domain
 
         private void Apply(IEvent evnt, bool isNew)
         {
-            Spooler.Spool(this, evnt);
+            StateSpooler.Spool(this, evnt);
             
             if (isNew) 
                 _changes.Add(evnt);

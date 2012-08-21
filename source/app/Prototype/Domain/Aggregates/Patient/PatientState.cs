@@ -18,7 +18,6 @@ namespace Prototype.Domain.Aggregates.Patient
 
         public void On(PatientUpdated e)
         {
-            Id = e.Id;
             Level = e.Level;
             DateOfBirth = e.DateOfBirth;
         }

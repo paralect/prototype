@@ -5,7 +5,6 @@ namespace Prototype.Domain.Aggregates.Patient.Commands
 {
     public class DeletePatient : Command
     {
-        public String Id { get; set; }
         public String Reason { get; set; }
         
         public DeletePatient() { }

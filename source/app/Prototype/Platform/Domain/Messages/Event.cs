@@ -13,6 +13,11 @@ namespace Prototype.Platform.Domain
         private EventMetadata _metadata = new EventMetadata();
 
         /// <summary>
+        /// ID of aggregate
+        /// </summary>
+        public String Id { get; set; }
+
+        /// <summary>
         /// Metadata of event
         /// </summary>
         public EventMetadata Metadata

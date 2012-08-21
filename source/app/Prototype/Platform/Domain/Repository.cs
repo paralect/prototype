@@ -16,9 +16,6 @@ namespace Prototype.Platform.Domain
         private readonly ITransitionRepository _transitionStorage;
         private readonly IEventBus _eventBus;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:System.Object"/> class.
-        /// </summary>
         public Repository(ITransitionRepository transitionStorage, IEventBus eventBus)
         {
             _transitionStorage = transitionStorage;
@@ -36,7 +33,6 @@ namespace Prototype.Platform.Domain
                     "Aggregate ID is empty string when trying to save {0} aggregate. Please specify aggregate ID.", aggregate.GetType().FullName));
 
             var transition = CreateTransition(aggregateId, aggregate.Version, aggregate.Changes);
-
             _transitionStorage.SaveTransition(transition);
 
             if (_eventBus != null)
@@ -56,7 +52,7 @@ namespace Prototype.Platform.Domain
 
             var fromVersion = 0;
             var stream = _transitionStorage.GetTransitions(id, fromVersion, int.MaxValue);
-            Spooler.Spool(state, stream.SelectMany(t => t.Events).Select(e => (IEvent) e.Data));
+            StateSpooler.Spool(state, stream.SelectMany(t => t.Events).Select(e => (IEvent) e.Data));
 
             return aggregate;
         }

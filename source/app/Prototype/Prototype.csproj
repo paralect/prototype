@@ -82,7 +82,7 @@
     <Compile Include="Platform\Domain\Interfaces\IEventMetadata.cs" />
     <Compile Include="Platform\Domain\Interfaces\IRepository.cs" />
     <Compile Include="Platform\Domain\Repository.cs" />
-    <Compile Include="Platform\Domain\Spooler.cs" />
+    <Compile Include="Platform\Domain\StateSpooler.cs" />
     <Compile Include="Platform\Domain\Transitions\Exceptions\ConcurrencyException.cs" />
     <Compile Include="Platform\Domain\Transitions\Exceptions\DuplicateTransitionException.cs" />
     <Compile Include="Platform\Domain\Transitions\Exceptions\IncorrectOrderOfTransitionsException.cs" />

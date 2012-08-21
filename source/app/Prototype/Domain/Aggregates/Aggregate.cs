@@ -54,7 +54,7 @@ namespace Prototype.Domain.Aggregates
 
         public void Apply(IEvent evnt)
         {
-            Spooler.Spool(_state, evnt);
+            StateSpooler.Spool(_state, evnt);
             _changes.Add(evnt);
         }
 
