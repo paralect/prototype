@@ -1,4 +1,5 @@
 using System;
+using Prototype.Domain.Aggregates;
 
 namespace Prototype.Platform.Domain
 {
@@ -10,7 +11,7 @@ namespace Prototype.Platform.Domain
         /// Generic version
         /// </summary>
         TAggregate GetById<TAggregate>(String id)
-            where TAggregate : AggregateRoot;
+            where TAggregate : Aggregate;
 
         /// <summary>
         /// Perform action on aggregate with specified id.

@@ -8,6 +8,9 @@ namespace Prototype.Domain.Aggregates.Patient
     {
         public void Create(CreatePatient c)
         {
+            if (c.Level != State.Level)
+                throw new ArgumentOutOfRangeException("c");
+
             Apply(new PatientCreated()
             {
                 Id = c.Id,
@@ -34,7 +37,7 @@ namespace Prototype.Domain.Aggregates.Patient
 
         public void Delete(String reason)
         {
-            Apply(new PatientDeleted(_state.Id, reason));
+            Apply(new PatientDeleted(State.Id, reason));
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MongoDB.Bson;
+using Prototype.Domain.Aggregates;
 using Prototype.Platform.Dispatching;
 using Prototype.Platform.Domain.EventBus;
 using Prototype.Platform.Domain.Transitions;
@@ -24,7 +25,7 @@ namespace Prototype.Platform.Domain
             _eventBus = eventBus;
         }
 
-        public void Save(AggregateRoot aggregate)
+        public void Save(Aggregate aggregate)
         {
             if (aggregate.Id == null)
                 throw new ArgumentException(String.Format(
@@ -43,18 +44,21 @@ namespace Prototype.Platform.Domain
         }
 
         public TAggregate GetById<TAggregate>(String id)
-            where TAggregate : AggregateRoot
+            where TAggregate : Aggregate
         {
             if (String.IsNullOrEmpty(id))
                 throw new ArgumentException(String.Format(
                     "Aggregate ID was not specified when trying to get by id {0} aggregate", typeof(TAggregate).FullName));
 
-            var obj = AggregateCreator.CreateAggregateRoot<TAggregate>();
+            var aggregate = AggregateCreator.CreateAggregateRoot<TAggregate>();
+            var state = AggregateCreator.CreateAggregateState(typeof (TAggregate));
+            aggregate.Setup(state);
 
             var fromVersion = 0;
             var stream = _transitionStorage.GetTransitions(id, fromVersion, int.MaxValue);
-            obj.LoadFromTransitions(stream);
-            return obj;
+            Spooler.Spool(state, stream.SelectMany(t => t.Events).Select(e => (IEvent) e.Data));
+
+            return aggregate;
         }
 
 

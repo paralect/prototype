@@ -4,12 +4,12 @@ using Prototype.Platform.Domain;
 
 namespace Prototype.Domain.Aggregates
 {
-    public abstract class Aggregate<TState>
+    public abstract class Aggregate
     {
         /// <summary>
         /// Aggregate state
         /// </summary>
-        protected TState _state;
+        private Object _state;
 
         /// <summary>
         /// Aggregate version. Version 0 means that object was just created.
@@ -23,6 +23,14 @@ namespace Prototype.Domain.Aggregates
         protected IList<IEvent> _changes;
 
         /// <summary>
+        /// Aggregate state
+        /// </summary>
+        public object State
+        {
+            get { return _state; }
+        }
+
+        /// <summary>
         /// List of pending events
         /// </summary>
         public IList<IEvent> Changes
@@ -33,7 +41,7 @@ namespace Prototype.Domain.Aggregates
         /// <summary>
         /// Establish context of aggregate
         /// </summary>
-        public void Setup(TState state, Int32 version = 0)
+        public void Setup(Object state, Int32 version = 0)
         {
             _state = state;
             _version = version;
@@ -52,4 +60,15 @@ namespace Prototype.Domain.Aggregates
             Apply(evnt);
         }
     }    
+
+    public abstract class Aggregate<TState> : Aggregate
+    {
+        /// <summary>
+        /// Aggregate state
+        /// </summary>
+        public new TState State
+        {
+            get { return (TState) base.State; }
+        }
+    }
 }

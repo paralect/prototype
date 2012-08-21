@@ -1,11 +1,12 @@
 using System;
 using System.Reflection;
+using Prototype.Domain.Aggregates;
 
 namespace Prototype.Platform.Domain.Utilities
 {
     public static class AggregateCreator
     {
-        public static AggregateRoot CreateAggregateRoot(Type aggregateRootType)
+        public static Aggregate CreateAggregateRoot(Type aggregateRootType)
         {
             if (!aggregateRootType.IsSubclassOf(typeof(AggregateRoot)))
             {
@@ -33,8 +34,29 @@ namespace Prototype.Platform.Domain.Utilities
             return aggregateRoot;
         }
 
-        public static T CreateAggregateRoot<T>() where T : AggregateRoot
+        public static T CreateAggregateRoot<T>() where T : Aggregate
         {
             return (T) CreateAggregateRoot(typeof (T));
         }
-    }}
+
+        /// <summary>
+        /// Will return null, if cannot find aggregate state type
+        /// </summary>
+        public static Object CreateAggregateState(Type aggregateType)
+        {
+            if (aggregateType.BaseType == null)
+                return null;
+
+            var aggregateInterface = aggregateType.BaseType;
+            var args = aggregateInterface.GetGenericArguments();
+
+            if (args.Length == 0)
+                return null;
+
+            var aggregateStateType = args[1];
+            var state = Activator.CreateInstance(aggregateStateType);
+
+            return state;
+        }
+    }
+}
