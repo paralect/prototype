@@ -32,7 +32,7 @@ namespace Prototype.Platform.Domain
                 throw new ArgumentException(String.Format(
                     "Aggregate ID is empty string when trying to save {0} aggregate. Please specify aggregate ID.", aggregate.GetType().FullName));
 
-            var transition = CreateTransition(aggregateId, aggregate.Version + 1, aggregate.Changes);
+            var transition = CreateTransition(aggregateId, aggregate);
             _transitionStorage.AppendTransition(transition);
 
             if (_eventBus != null)
@@ -74,14 +74,14 @@ namespace Prototype.Platform.Domain
         /// Create changeset. Used to persist changes in aggregate
         /// </summary>
         /// <returns></returns>
-        public Transition CreateTransition(String id, Int32 version, List<IEvent> changes)
+        public Transition CreateTransition(String id, Aggregate aggregate)
         {
             if (String.IsNullOrEmpty(id))
                 throw new Exception(String.Format("ID was not specified for domain object. AggregateRoot [{0}] doesn't have correct ID. Maybe you forgot to set an _id field?", this.GetType().FullName));
 
             var currentTime = DateTime.UtcNow;
             var transitionEvents = new List<TransitionEvent>();
-            foreach (var e in changes)
+            foreach (var e in aggregate.Changes)
             {
                 e.Metadata.EventId = ObjectId.GenerateNewId().ToString();
                 e.Metadata.StoredDate = currentTime;
@@ -98,7 +98,11 @@ namespace Prototype.Platform.Domain
                 transitionEvents.Add(new TransitionEvent(e.GetType().AssemblyQualifiedName, e));
             }
 
-            return new Transition(new TransitionId(id, version + 1), GetType().AssemblyQualifiedName, currentTime, transitionEvents);
+            return new Transition(
+                new TransitionId(id, aggregate.Version + 1), 
+                aggregate.GetType().AssemblyQualifiedName, 
+                currentTime, 
+                transitionEvents);
         }
 
     }
@@ -107,7 +111,6 @@ namespace Prototype.Platform.Domain
     {
         public Repository(ITransitionRepository transitionStorage, IEventBus eventBus): base(transitionStorage, eventBus)
         {
-            
         }
 
         public void Save(String aggregateId, TAggregate aggregate)

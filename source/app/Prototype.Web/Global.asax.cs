@@ -12,6 +12,9 @@ using Prototype.Platform.Domain.Transitions.Mongo;
 using Prototype.Platform.Mongo;
 using Prototype.Platform.Unity;
 using Microsoft.Practices.Unity;
+using Prototype.Views;
+using Uniform;
+using Uniform.Mongodb;
 using UnityServiceLocator = Microsoft.Practices.Unity.UnityServiceLocator;
 
 namespace Prototype.Web
@@ -21,10 +24,12 @@ namespace Prototype.Web
         protected void Application_Start()
         {
             var container = HttpApplicationUnityContext.Current;
+
             ConfigureSettings(container);
             ConfigureMvc(container);
             ConfigureMongoDB(container);
             ConfigurePlatform(container);
+            ConfigureUniform(container);
         }
 
         private void ConfigureSettings(IUnityContainer container)
@@ -80,12 +85,32 @@ namespace Prototype.Web
                 .SetServiceLocator(new UnityServiceLocator(container))
             );
 
-            container.RegisterInstance<ITransitionRepository>(transitionsRepository);
-            container.RegisterInstance<IEventBus>(new DispatcherEventBus(dispatcher));
-            container.RegisterType<IRepository, Repository>();
-            container.RegisterType(typeof(IRepository<>), typeof(Repository<>));
+            container
+                .RegisterInstance<ITransitionRepository>(transitionsRepository)
+                .RegisterInstance<IEventBus>(new DispatcherEventBus(dispatcher))
+                .RegisterInstance<IDispatcher>(dispatcher)
+                .RegisterType<IRepository, Repository>()
+                .RegisterType(typeof (IRepository<>), typeof (Repository<>))
+                .RegisterType<ICommandBus, CommandBus>();
+        }
 
-            container.RegisterType<ICommandBus, CommandBus>();
+        private void ConfigureUniform(IUnityContainer container)
+        {
+            var settings = container.Resolve<PrototypeSettings>();
+
+            // 1. Create databases
+            var mongodbDatabase = new MongodbDatabase(settings.MongoViewConnectionString);
+            //var mysqlDatabase = new AdoNetDatabase("server=127.0.0.1;Uid=root;Pwd=qwerty;Database=test;");
+
+
+            // 2. Configure uniform 
+            var uniform = UniformDatabase.Create(config => config
+                .RegisterDocuments(typeof(PatientView).Assembly)
+                .RegisterDatabase(ViewDatabases.Mongodb, mongodbDatabase)
+                //.RegisterDatabase(SampleDatabases.Sql, mongodbDatabase)
+            );
+
+            container.RegisterInstance(uniform);            
         }
     }
 }

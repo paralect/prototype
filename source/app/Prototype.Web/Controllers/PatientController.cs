@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Web.Mvc;
+using Microsoft.Practices.Unity;
 using Prototype.Domain.Aggregates.Patient.Commands;
 using Prototype.Views;
 using Prototype.Web.Models;
@@ -9,18 +10,24 @@ namespace Prototype.Web.Controllers
 {
     public class PatientController : Controller
     {
-        private readonly ICommandBus _bus;
+        [Dependency]
+        public ICommandBus Bus { get; set; }
+
+        [Dependency]
+        public MongoViewDatabase ViewDatabase { get; set; }
+
+/*        private readonly ICommandBus _bus;
         private readonly MongoViewDatabase _viewDatabase;
 
         public PatientController(ICommandBus bus, MongoViewDatabase viewDatabase)
         {
             _bus = bus;
             _viewDatabase = viewDatabase;
-        }
+        }*/
 
         public ActionResult Index()
         {
-            var patients = _viewDatabase.Patients.FindAll().ToList();
+            var patients = ViewDatabase.Patients.FindAll().ToList();
 
             return View(new PatientPageViewModel
             {
@@ -36,7 +43,7 @@ namespace Prototype.Web.Controllers
         [HttpPost]
         public ActionResult Create(PatientView view)
         {
-            _bus.Send(new CreatePatient()
+            Bus.Send(new CreatePatient()
             {
                 Id = Guid.NewGuid().ToString(),
                 Initials = view.Initials,
@@ -57,7 +64,7 @@ namespace Prototype.Web.Controllers
         [HttpPost]
         public ActionResult Edit(PatientView view)
         {
-            _bus.Send(new UpdatePatient()
+            Bus.Send(new UpdatePatient()
             {
                 Id = view.PatientId,
                 Initials = view.Initials,
@@ -73,7 +80,7 @@ namespace Prototype.Web.Controllers
         [HttpGet]
         public ActionResult Delete(String patientId)
         {
-            _bus.Send(new DeletePatient(patientId, "Removed by user from Patient page"));
+            Bus.Send(new DeletePatient(patientId, "Removed by user from Patient page"));
             return RedirectToAction("Index");
         }
     }

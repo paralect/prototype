@@ -35,7 +35,8 @@ namespace Prototype
 
             try
             {
-                _dispatcher.Dispatch(commands);
+                foreach (var command in commands)
+                    _dispatcher.Dispatch(command);
             }
             catch (Exception ex)
             {
