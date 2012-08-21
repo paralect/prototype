@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Prototype.Platform.Domain;
 
-namespace Prototype.Domain.Aggregates
+namespace Prototype.Platform.Domain
 {
     public abstract class Aggregate
     {

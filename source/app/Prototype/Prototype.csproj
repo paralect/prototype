@@ -61,7 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\Aggregates\Aggregate.cs" />
+    <Compile Include="Platform\Domain\Aggregate.cs" />
     <Compile Include="Domain\Aggregates\Patient\Commands\CreatePatient.cs" />
     <Compile Include="Domain\Aggregates\Patient\Commands\DeletePatient.cs" />
     <Compile Include="Domain\Aggregates\Patient\Events\PatientUpdated.cs" />
