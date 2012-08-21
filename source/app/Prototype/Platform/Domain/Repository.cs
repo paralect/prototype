@@ -25,17 +25,17 @@ namespace Prototype.Platform.Domain
             _eventBus = eventBus;
         }
 
-        public void Save(Aggregate aggregate)
+        public void Save(String aggregateId, Aggregate aggregate)
         {
-            if (aggregate.Id == null)
+            if (aggregateId == null)
                 throw new ArgumentException(String.Format(
                     "Aggregate ID is null when trying to save {0} aggregate. Please specify aggregate ID.", aggregate.GetType().FullName));
 
-            if (String.IsNullOrEmpty(aggregate.Id))
+            if (String.IsNullOrEmpty(aggregateId))
                 throw new ArgumentException(String.Format(
                     "Aggregate ID is empty string when trying to save {0} aggregate. Please specify aggregate ID.", aggregate.GetType().FullName));
 
-            var transition = CreateTransition(aggregate.Id, aggregate.Version, aggregate.Changes);
+            var transition = CreateTransition(aggregateId, aggregate.Version, aggregate.Changes);
 
             _transitionStorage.SaveTransition(transition);
 
@@ -67,11 +67,11 @@ namespace Prototype.Platform.Domain
         /// Aggregate should be already created.
         /// </summary>
         public void Perform<TAggregate>(String id, Action<TAggregate> action)
-            where TAggregate : AggregateRoot
+            where TAggregate : Aggregate
         {
             var aggregate = GetById<TAggregate>(id);
             action(aggregate);
-            Save(aggregate);
+            Save(id, aggregate);
         }
 
         /// <summary>
@@ -107,16 +107,16 @@ namespace Prototype.Platform.Domain
 
     }
 
-    public class Repository<TAggregate> : Repository, IRepository<TAggregate> where TAggregate : AggregateRoot
+    public class Repository<TAggregate> : Repository, IRepository<TAggregate> where TAggregate : Aggregate
     {
         public Repository(ITransitionRepository transitionStorage, IEventBus eventBus): base(transitionStorage, eventBus)
         {
             
         }
 
-        public void Save(TAggregate aggregate)
+        public void Save(String aggregateId, TAggregate aggregate)
         {
-            base.Save(aggregate);
+            base.Save(aggregateId, aggregate);
         }
 
         public TAggregate GetById(String id)

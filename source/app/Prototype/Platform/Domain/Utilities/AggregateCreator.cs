@@ -29,7 +29,7 @@ namespace Prototype.Platform.Domain.Utilities
             }
 
             // There was a ctor found, so invoke it and return the instance.
-            var aggregateRoot = (AggregateRoot)ctor.Invoke(null);
+            var aggregateRoot = (Aggregate)ctor.Invoke(null);
 
             return aggregateRoot;
         }

@@ -20,7 +20,7 @@ namespace Prototype.Domain.Aggregates
         /// <summary>
         /// List of pending events
         /// </summary>
-        protected IList<IEvent> _changes;
+        protected List<IEvent> _changes;
 
         /// <summary>
         /// Aggregate state
@@ -30,10 +30,15 @@ namespace Prototype.Domain.Aggregates
             get { return _state; }
         }
 
+        public int Version
+        {
+            get { return _version; }
+        }
+
         /// <summary>
         /// List of pending events
         /// </summary>
-        public IList<IEvent> Changes
+        public List<IEvent> Changes
         {
             get { return _changes; }
         }

@@ -5,7 +5,7 @@ namespace Prototype.Platform.Domain
 {
     public interface IRepository 
     {
-        void Save(AggregateRoot aggregate);
+        void Save(String aggregateId, Aggregate aggregate);
 
         /// <summary>
         /// Generic version
@@ -18,12 +18,12 @@ namespace Prototype.Platform.Domain
         /// Aggregate should be already created.
         /// </summary>
         void Perform<TAggregate>(String id, Action<TAggregate> action)
-            where TAggregate : AggregateRoot;
+            where TAggregate : Aggregate;
     }
 
-    public interface IRepository<TAggregate> where TAggregate : AggregateRoot
+    public interface IRepository<TAggregate> where TAggregate : Aggregate
     {
-        void Save(TAggregate aggregate);
+        void Save(String aggregateId, TAggregate aggregate);
 
         /// <summary>
         /// Generic version
