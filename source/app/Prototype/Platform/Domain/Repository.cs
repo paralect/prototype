@@ -32,7 +32,7 @@ namespace Prototype.Platform.Domain
                 throw new ArgumentException(String.Format(
                     "Aggregate ID is empty string when trying to save {0} aggregate. Please specify aggregate ID.", aggregate.GetType().FullName));
 
-            var transition = CreateTransition(aggregateId, aggregate.Version, aggregate.Changes);
+            var transition = CreateTransition(aggregateId, aggregate.Version + 1, aggregate.Changes);
             _transitionStorage.SaveTransition(transition);
 
             if (_eventBus != null)

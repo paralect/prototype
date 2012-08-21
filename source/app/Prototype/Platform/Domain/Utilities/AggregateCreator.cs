@@ -8,7 +8,7 @@ namespace Prototype.Platform.Domain.Utilities
     {
         public static Aggregate CreateAggregateRoot(Type aggregateRootType)
         {
-            if (!aggregateRootType.IsSubclassOf(typeof(AggregateRoot)))
+            if (!aggregateRootType.IsSubclassOf(typeof(Aggregate)))
             {
                 var msg = string.Format("Specified type {0} is not a subclass of AggregateRoot class.", aggregateRootType.FullName);
                 throw new ArgumentOutOfRangeException("aggregateRootType", msg);
@@ -53,7 +53,7 @@ namespace Prototype.Platform.Domain.Utilities
             if (args.Length == 0)
                 return null;
 
-            var aggregateStateType = args[1];
+            var aggregateStateType = args[0];
             var state = Activator.CreateInstance(aggregateStateType);
 
             return state;

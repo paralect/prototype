@@ -8,8 +8,8 @@ namespace Prototype.Domain.Aggregates.Patient
     {
         public void Create(CreatePatient c)
         {
-            if (c.Level != State.Level)
-                throw new ArgumentOutOfRangeException("c");
+//            if (c.Level != State.Level)
+//                throw new ArgumentOutOfRangeException("c");
 
             Apply(new PatientCreated()
             {

@@ -20,7 +20,7 @@ namespace Prototype.Domain.Aggregates
         /// <summary>
         /// List of pending events
         /// </summary>
-        protected List<IEvent> _changes;
+        protected List<IEvent> _changes = new List<IEvent>();
 
         /// <summary>
         /// Aggregate state

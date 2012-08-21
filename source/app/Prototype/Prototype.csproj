@@ -71,7 +71,6 @@
     <Compile Include="Domain\Aggregates\Patient\PatientAggregate.cs" />
     <Compile Include="Domain\Aggregates\Patient\PatientApplicationService.cs" />
     <Compile Include="Domain\Aggregates\Patient\PatientState.cs" />
-    <Compile Include="Platform\Domain\AggregateRoot.cs" />
     <Compile Include="Platform\Domain\Messages\Command.cs" />
     <Compile Include="Platform\Domain\Messages\Event.cs" />
     <Compile Include="Platform\Domain\EventBus\IEventBus.cs" />
