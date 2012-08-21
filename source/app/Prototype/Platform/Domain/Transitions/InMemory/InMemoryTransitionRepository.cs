@@ -9,7 +9,7 @@ namespace Prototype.Platform.Domain.Transitions.InMemory
     {
         private readonly List<Transition> _transitions = new List<Transition>();
 
-        public void SaveTransition(Transition transition)
+        public void AppendTransition(Transition transition)
         {
             _transitions.Add(transition);
         }
@@ -23,9 +23,9 @@ namespace Prototype.Platform.Domain.Transitions.InMemory
                 .ToList();
         }
 
-        public List<Transition> GetTransitions(int startIndex, int count)
+        public IEnumerable<Transition> GetTransitions(int startIndex, int count)
         {
-            return _transitions.Skip(startIndex).Take(count).ToList();
+            return _transitions.Skip(startIndex).Take(count);
         }
 
         public Int64 CountTransitions()
@@ -54,7 +54,7 @@ namespace Prototype.Platform.Domain.Transitions.InMemory
 
         public void EnsureIndexes()
         {
-            throw new NotSupportedException("In Memory Repository does not need indexes.");
+            // Nothing to do here. In Memory Repository does not need indexes.
         }
     }
 }

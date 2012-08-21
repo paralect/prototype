@@ -51,7 +51,7 @@ namespace Prototype.Platform.Domain.Transitions.Mongo
             _transitionServer.Snapshots.EnsureIndex(IndexKeys.Ascending("_id.StreamId"));
         }
 
-        public void SaveTransition(Transition transition)
+        public void AppendTransition(Transition transition)
         {
             // skip saving empty transition
             if (transition.Events.Count < 1)
@@ -85,18 +85,15 @@ namespace Prototype.Platform.Domain.Transitions.Mongo
                 .ToList();
 
             // Check that such stream exists
-            if (docs.Count < 1
-                //when use snapshots fromVersion can be bigger then 0 or 1
-                //in such situations we no need check if stream exists
-                && (fromVersion == 0 || fromVersion == 1))
-                throw new ArgumentException(String.Format("There is no stream in store with id {0}", streamId));
+            if (docs.Count < 1)
+                return new List<Transition>();
 
             var transitions = docs.Select(_serializer.Deserialize).ToList();
 
             return transitions;
         }
 
-        public List<Transition> GetTransitions(int startIndex, int count)
+        public IEnumerable<Transition> GetTransitions(int startIndex, int count)
         {
             var query = Query.And();
 

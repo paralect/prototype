@@ -102,7 +102,7 @@ namespace Prototype.Tests
             {
                 var transitionEvents = aggregate.Value.Select(e => new TransitionEvent("", e)).ToList();
                 var transition = new Transition(new TransitionId(aggregate.Key, 1), typeof (TAggregate).FullName, DateTime.Now, transitionEvents);
-                store.SaveTransition(transition);
+                store.AppendTransition(transition);
             }
         }
 

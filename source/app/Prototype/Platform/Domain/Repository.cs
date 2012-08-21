@@ -33,7 +33,7 @@ namespace Prototype.Platform.Domain
                     "Aggregate ID is empty string when trying to save {0} aggregate. Please specify aggregate ID.", aggregate.GetType().FullName));
 
             var transition = CreateTransition(aggregateId, aggregate.Version + 1, aggregate.Changes);
-            _transitionStorage.SaveTransition(transition);
+            _transitionStorage.AppendTransition(transition);
 
             if (_eventBus != null)
                 _eventBus.Publish(transition.Events.Select(e => (IEvent)e.Data).ToList());
