@@ -1,0 +1,14 @@
+*resharper.user
+build/
+Logs/
+logs/
+[Bb]in/
+[Oo]bj/
+[Hh]elp/
+EFExtensions/EFExtensions.xml
+*.suo
+*.sln.cache
+_ReSharper.*/
+*.user
+*.nupkg
+*.vs10x
