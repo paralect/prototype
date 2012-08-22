@@ -12,7 +12,7 @@ namespace Prototype.Platform.Domain.Transitions
         /// Type of event. By default this is a fully qualified name of CLR type.
         /// But can be anything that can help identify event type during deserialization phase.
         /// </summary>
-        public String TypeId { get; private set; }
+        public string TypeId { get; private set; }
 
         /// <summary>
         /// Data or body of event

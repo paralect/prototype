@@ -1,0 +1,37 @@
+﻿@model Prototype.Web.Models.SubjectPageViewModel
+
+@{
+    ViewBag.Title = "Subjects";
+}
+
+<h2>Subjects</h2>
+
+@Html.ActionLink("Add Subject", "Create", "Subject")
+<br/>
+<br/>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Initials</th>
+        <th>Level</th>
+        <th>Site</th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach(var s in Model.Subjects)
+    {
+        <tr>
+            <td style="font-size: 11px; color: #bbbbbb;">@s.SubjectId</td>
+            <td>@s.Name</td>
+            <td>@s.Initials</td>
+            <td>@s.Level</td>
+            <td>@s.SiteName</td>
+            <td>
+                <a href="@Url.Action("Edit", "Subject", new { id = s.SubjectId })">Edit</a>
+                <a href="@Url.Action("Delete", "Subject", new { id = s.SubjectId })">Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>

@@ -9,12 +9,12 @@ namespace Prototype.Platform.Logging
         /// <summary>
         /// Handler unique id
         /// </summary>
-        public String HandlerId { get; set; }
+        public string HandlerId { get; set; }
 
         /// <summary>
         /// Command unique id
         /// </summary>
-        public String CommandId { get; set; }
+        public string CommandId { get; set; }
 
         /// <summary>
         /// Date of start of handling
@@ -29,17 +29,17 @@ namespace Prototype.Platform.Logging
         /// <summary>
         /// CLR full type name of command handler
         /// </summary>
-        public String TypeName { get; set; }
+        public string TypeName { get; set; }
 
         /// <summary>
         /// Error Message (if exists, "" otherwise)
         /// </summary>
-        public String ErrorMessage { get; set; }
+        public string ErrorMessage { get; set; }
 
         /// <summary>
         /// Error stack trace (if exists, "" otherwise)
         /// </summary>
-        public String ErrorStackTrace { get; set; }
+        public string ErrorStackTrace { get; set; }
 
         /// <summary>
         /// To Bson

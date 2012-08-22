@@ -7,7 +7,7 @@ namespace Prototype.Platform.Domain.Transitions
         /// <summary>
         /// Unique stream id (usually means aggregate id)
         /// </summary>
-        public String StreamId { get; private set; }
+        public string StreamId { get; private set; }
 
         /// <summary>
         /// Version of commit (sequence number) 

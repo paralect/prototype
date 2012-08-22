@@ -7,17 +7,17 @@ namespace Prototype.Platform.Domain
         /// <summary>
         /// Unique Id of event
         /// </summary>
-        String EventId { get; set; }
+        string EventId { get; set; }
 
         /// <summary>
         /// Command Id of command that initiate this event
         /// </summary>
-        String CommandId { get; set; }
+        string CommandId { get; set; }
 
         /// <summary>
         /// User Id of user who initiated this event
         /// </summary>
-        String UserId { get; set; }
+        string UserId { get; set; }
 
         /// <summary>
         /// Datetime when event was stored in Event Store.
@@ -27,6 +27,6 @@ namespace Prototype.Platform.Domain
         /// <summary>
         /// Assembly qualified CLR Type name
         /// </summary>
-        String TypeName { get; set; }
+        string TypeName { get; set; }
     }
 }

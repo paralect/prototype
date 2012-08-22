@@ -1,0 +1,33 @@
+﻿@model Prototype.Web.Models.SitePageViewModel
+
+@{
+    ViewBag.Title = "Site";
+}
+
+<h2>Sites</h2>
+
+@Html.ActionLink("Add Site", "Create", "Site")
+<br/>
+<br/>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Capacity</th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach(var s in Model.Sites)
+    {
+        <tr>
+            <td style="font-size: 11px; color: #bbbbbb;">@s.SiteId</td>
+            <td>@s.Name</td>
+            <td>@s.Capacity</td>
+            <td>
+                <a href="@Url.Action("Edit", "Site", new { id = s.SiteId })">Edit</a>
+                <a href="@Url.Action("Delete", "Site", new { id = s.SiteId })">Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>

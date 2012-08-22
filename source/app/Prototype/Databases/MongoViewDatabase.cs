@@ -61,9 +61,14 @@ namespace Prototype.Databases
             return Database.GetCollection<TDocument>(collectionName).ToReadonly();
         }
 
-        public ReadonlyMongoCollection<PatientView> Patients
+        public ReadonlyMongoCollection<SubjectView> Subjects
         {
-            get { return GetCollection<PatientView>(ViewCollections.Patients); }
+            get { return GetCollection<SubjectView>(ViewCollections.Subjects); }
+        }
+
+        public ReadonlyMongoCollection<SiteView> Sites
+        {
+            get { return GetCollection<SiteView>(ViewCollections.Sites); }
         }
     }
 }

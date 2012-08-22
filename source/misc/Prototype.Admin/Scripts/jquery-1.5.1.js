@@ -1021,7 +1021,7 @@ jQuery.extend({
 readyList = jQuery._Deferred();
 
 // Populate the class2type map
-jQuery.each("Boolean Number String Function Array Date RegExp Object".split(" "), function(i, name) {
+jQuery.each("Boolean Number string Function Array Date RegExp Object".split(" "), function(i, name) {
 	class2type[ "[object " + name + "]" ] = name.toLowerCase();
 });
 
@@ -5600,12 +5600,12 @@ jQuery.extend({
 				// Remove IE's autoinserted <tbody> from table fragments
 				if ( !jQuery.support.tbody ) {
 
-					// String was a <table>, *may* have spurious <tbody>
+					// string was a <table>, *may* have spurious <tbody>
 					var hasBody = rtbody.test(elem),
 						tbody = tag === "table" && !hasBody ?
 							div.firstChild && div.firstChild.childNodes :
 
-							// String was a bare <thead> or <tfoot>
+							// string was a bare <thead> or <tfoot>
 							wrap[1] === "<table>" && !hasBody ?
 								div.childNodes :
 								[];

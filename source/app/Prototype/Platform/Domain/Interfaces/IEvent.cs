@@ -7,7 +7,7 @@ namespace Prototype.Platform.Domain
     /// </summary>
     public interface IEvent
     {
-        String Id { get; set; }
+        string Id { get; set; }
         EventMetadata Metadata { get; set; }
     }
 }

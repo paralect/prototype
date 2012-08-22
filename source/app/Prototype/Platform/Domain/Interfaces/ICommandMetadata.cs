@@ -7,17 +7,17 @@ namespace Prototype.Platform.Domain
         /// <summary>
         /// Unique Id of Command
         /// </summary>
-        String CommandId { get; set; }
+        string CommandId { get; set; }
 
         /// <summary>
         /// User Id of user who initiate this command
         /// </summary>
-        String UserId { get; set; }
+        string UserId { get; set; }
 
         /// <summary>
         /// Assembly qualified CLR Type name of Command Type
         /// </summary>
-        String TypeName { get; set; }
+        string TypeName { get; set; }
 
         /// <summary>
         /// Time when command was created

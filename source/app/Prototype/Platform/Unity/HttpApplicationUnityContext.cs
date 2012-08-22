@@ -6,7 +6,7 @@ namespace Prototype.Platform.Unity
 {
     public class HttpApplicationUnityContext
     {
-        private const String UnityContextKey = "UnityContext";
+        private const string UnityContextKey = "UnityContext";
 
         private static Object _lock = new Object();
 

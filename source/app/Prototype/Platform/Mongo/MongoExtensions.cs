@@ -8,7 +8,7 @@ namespace Prototype.Platform.Mongo
     {
         public static DateTime DefaultDateTime = DateTime.Parse("1980/1/1");
 
-        public static String GetString(this BsonDocument doc, String key, String defaultValue = "")
+        public static string GetString(this BsonDocument doc, string key, string defaultValue = "")
         {
             BsonValue value;
             var contains = doc.TryGetValue(key, out value);
@@ -19,7 +19,7 @@ namespace Prototype.Platform.Mongo
             return value.AsString;
         }
 
-        public static DateTime GetDateTime(this BsonDocument doc, String key, DateTime defaultValue = default(DateTime))
+        public static DateTime GetDateTime(this BsonDocument doc, string key, DateTime defaultValue = default(DateTime))
         {
             var defaultDateTime = defaultValue == default(DateTime) ? DefaultDateTime : defaultValue;
 
@@ -33,7 +33,7 @@ namespace Prototype.Platform.Mongo
         }
 
 
-        public static Int32 GetInt32(this BsonDocument doc, String key, Int32 defaultValue = 0)
+        public static Int32 GetInt32(this BsonDocument doc, string key, Int32 defaultValue = 0)
         {
             BsonValue value;
             var contains = doc.TryGetValue(key, out value);
@@ -44,7 +44,7 @@ namespace Prototype.Platform.Mongo
             return value.AsInt32;
         }
 
-        public static Int32 GetInt(this BsonDocument doc, String key, Int32 defaultValue = 0)
+        public static Int32 GetInt(this BsonDocument doc, string key, Int32 defaultValue = 0)
         {
             BsonValue value;
             var contains = doc.TryGetValue(key, out value);
@@ -60,7 +60,7 @@ namespace Prototype.Platform.Mongo
             return defaultValue;
         }
 
-        public static bool GetBool(this BsonDocument doc, String key, bool defaultValue = false)
+        public static bool GetBool(this BsonDocument doc, string key, bool defaultValue = false)
         {
             BsonValue value;
             var contains = doc.TryGetValue(key, out value);
@@ -71,7 +71,7 @@ namespace Prototype.Platform.Mongo
             return value.AsBoolean;
         }
 
-        public static Double GetDouble(this BsonDocument doc, String key, Double defaultValue = 0)
+        public static Double GetDouble(this BsonDocument doc, string key, Double defaultValue = 0)
         {
             BsonValue value;
             var contains = doc.TryGetValue(key, out value);
@@ -82,7 +82,7 @@ namespace Prototype.Platform.Mongo
             return value.AsDouble;
         }
 
-        public static BsonArray GetBsonArray(this BsonDocument doc, String key)
+        public static BsonArray GetBsonArray(this BsonDocument doc, string key)
         {
             BsonValue value;
             var contains = doc.TryGetValue(key, out value);
@@ -93,7 +93,7 @@ namespace Prototype.Platform.Mongo
             return value.AsBsonArray;
         }
 
-        public static BsonDocument GetBsonDocument(this BsonDocument doc, String key)
+        public static BsonDocument GetBsonDocument(this BsonDocument doc, string key)
         {
             BsonValue value;
             var contains = doc.TryGetValue(key, out value);

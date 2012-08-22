@@ -15,7 +15,7 @@ namespace Prototype.Platform.Domain
         /// <summary>
         /// ID of aggregate
         /// </summary>
-        public String Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Command metadata
@@ -32,17 +32,17 @@ namespace Prototype.Platform.Domain
         /// <summary>
         /// Unique Id of Command
         /// </summary>
-        public String CommandId { get; set; }
+        public string CommandId { get; set; }
 
         /// <summary>
         /// User Id of user who initiate this command
         /// </summary>
-        public String UserId { get; set; }
+        public string UserId { get; set; }
 
         /// <summary>
         /// Assembly qualified CLR Type name of Command Type
         /// </summary>
-        public String TypeName { get; set; }
+        public string TypeName { get; set; }
 
         /// <summary>
         /// Time when command was created

@@ -5,7 +5,7 @@ using System.Reflection;
 using NUnit.Framework;
 using Microsoft.Practices.Unity;
 using Prototype.Domain.Aggregates;
-using Prototype.Domain.Aggregates.Patient.Events;
+using Prototype.Domain.Aggregates.Subject.Events;
 using Prototype.Platform.Dispatching;
 using Prototype.Platform.Domain;
 using Prototype.Platform.Domain.EventBus;
@@ -18,7 +18,7 @@ namespace Prototype.Tests
     [TestFixture]
     public abstract class AggregateTest<TAggregate> where TAggregate : Aggregate
     {
-        protected String _id;
+        protected string _id;
         protected TAggregate _aggregate;
         protected IEventBus _eventBus;
         protected List<IEvent> _actualEvents;
@@ -51,7 +51,7 @@ namespace Prototype.Tests
             container.RegisterType(typeof(IRepository<>), typeof(Repository<>));
 
             var dispatcher = Dispatcher.Create(d => d
-                .AddHandlers(typeof (PatientCreated).Assembly)
+                .AddHandlers(typeof (SubjectCreated).Assembly)
                 .SetServiceLocator(new UnityServiceLocator(container))
             );
 

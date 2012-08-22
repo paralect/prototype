@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using Prototype.Domain.Aggregates.Patient;
-using Prototype.Domain.Aggregates.Patient.Commands;
-using Prototype.Domain.Aggregates.Patient.Events;
+using Prototype.Domain.Aggregates.Subject;
+using Prototype.Domain.Aggregates.Subject.Commands;
+using Prototype.Domain.Aggregates.Subject.Events;
 using Prototype.Platform.Domain;
 
-namespace Prototype.Tests.AggregateTests.PatientTests
+namespace Prototype.Tests.AggregateTests.SubjectTests
 {
-    public class when_patient_created : AggregateTest<PatientAggregate>
+    public class when_Subject_created : AggregateTest<SubjectAggregate>
     {
         public override IEnumerable<IEvent> Given()
         {
@@ -15,12 +15,12 @@ namespace Prototype.Tests.AggregateTests.PatientTests
 
         public override IEnumerable<ICommand> When()
         {
-            yield return new CreatePatient() { Id = _id, Level = 25, Name = "John" };
+            yield return new CreateSubject() { Id = _id, Level = 25, Name = "John" };
         }
 
         public override IEnumerable<IEvent> Expected()
         {
-            yield return new PatientCreated() { Id = _id, Level = 25, Name = "John" };
+            yield return new SubjectCreated() { Id = _id, Level = 25, Name = "John" };
         }
     }
 }

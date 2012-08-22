@@ -7,7 +7,7 @@ namespace Prototype.Platform.Domain
     /// </summary>
     public interface ICommand
     {
-        String Id { get; set; }
+        string Id { get; set; }
         ICommandMetadata Metadata { get; set; }
     }
 }

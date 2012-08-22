@@ -66,22 +66,32 @@
   <ItemGroup>
     <Compile Include="Common\Interceptors\LoggingInterceptor.cs" />
     <Compile Include="Configuration.cs" />
-    <Compile Include="Handlers\ViewHandlers\PatientReducedViewHandler.cs" />
-    <Compile Include="Handlers\ViewHandlers\PatientViewHandler.cs" />
+    <Compile Include="Domain\Aggregates\Site\Commands\CreateSite.cs" />
+    <Compile Include="Domain\Aggregates\Site\Commands\DeleteSubject.cs" />
+    <Compile Include="Domain\Aggregates\Site\Commands\UpdateSubject.cs" />
+    <Compile Include="Domain\Aggregates\Site\Events\SiteCreated.cs" />
+    <Compile Include="Domain\Aggregates\Site\Events\SiteDeleted.cs" />
+    <Compile Include="Domain\Aggregates\Site\Events\SiteUpdated.cs" />
+    <Compile Include="Domain\Aggregates\Site\SiteAggregate.cs" />
+    <Compile Include="Domain\Aggregates\Site\SiteApplicationService.cs" />
+    <Compile Include="Domain\Aggregates\Site\SiteState.cs" />
+    <Compile Include="Handlers\ViewHandlers\SiteViewHandler.cs" />
+    <Compile Include="Handlers\ViewHandlers\SubjectReducedViewHandler.cs" />
+    <Compile Include="Handlers\ViewHandlers\SubjectViewHandler.cs" />
     <Compile Include="Databases\MongoLogsDatabase.cs" />
     <Compile Include="Databases\MongoViewDatabase.cs" />
     <Compile Include="Databases\MongoEventsDatabase.cs" />
-    <Compile Include="Handlers\WorkflowHandlers\PatientWorkflow.cs" />
+    <Compile Include="Handlers\WorkflowHandlers\SubjectWorkflow.cs" />
     <Compile Include="Platform\Domain\Aggregate.cs" />
-    <Compile Include="Domain\Aggregates\Patient\Commands\CreatePatient.cs" />
-    <Compile Include="Domain\Aggregates\Patient\Commands\DeletePatient.cs" />
-    <Compile Include="Domain\Aggregates\Patient\Events\PatientUpdated.cs" />
-    <Compile Include="Domain\Aggregates\Patient\Events\PatientDeleted.cs" />
-    <Compile Include="Domain\Aggregates\Patient\Events\PatientCreated.cs" />
-    <Compile Include="Domain\Aggregates\Patient\Commands\UpdatePatient.cs" />
-    <Compile Include="Domain\Aggregates\Patient\PatientAggregate.cs" />
-    <Compile Include="Domain\Aggregates\Patient\PatientApplicationService.cs" />
-    <Compile Include="Domain\Aggregates\Patient\PatientState.cs" />
+    <Compile Include="Domain\Aggregates\Subject\Commands\CreateSubject.cs" />
+    <Compile Include="Domain\Aggregates\Subject\Commands\DeleteSubject.cs" />
+    <Compile Include="Domain\Aggregates\Subject\Events\SubjectUpdated.cs" />
+    <Compile Include="Domain\Aggregates\Subject\Events\SubjectDeleted.cs" />
+    <Compile Include="Domain\Aggregates\Subject\Events\SubjectCreated.cs" />
+    <Compile Include="Domain\Aggregates\Subject\Commands\UpdateSubject.cs" />
+    <Compile Include="Domain\Aggregates\Subject\SubjectAggregate.cs" />
+    <Compile Include="Domain\Aggregates\Subject\SubjectApplicationService.cs" />
+    <Compile Include="Domain\Aggregates\Subject\SubjectState.cs" />
     <Compile Include="Platform\Domain\EventBus\DispatcherEventBus.cs" />
     <Compile Include="Platform\Domain\Messages\Command.cs" />
     <Compile Include="Platform\Domain\Messages\Event.cs" />
@@ -144,8 +154,9 @@
     <Compile Include="CommandBus.cs" />
     <Compile Include="PriorityStages.cs" />
     <Compile Include="Databases\ViewDatabase.cs" />
-    <Compile Include="Views\PatientView.cs" />
-    <Compile Include="Views\PatientViewReduced.cs" />
+    <Compile Include="Views\SiteView.cs" />
+    <Compile Include="Views\SubjectView.cs" />
+    <Compile Include="Views\SubjectViewReduced.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Handlers\IndexHandlers\" />

@@ -8,7 +8,7 @@ namespace Prototype.Admin.Models
 {
     public class AggregatePage
     {
-        public String Id { get; set; }
+        public string Id { get; set; }
         public BsonDocument CurrentAggregateState { get; set; }
         public List<Transition> Transitions { get; set; }
 

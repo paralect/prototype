@@ -1,0 +1,56 @@
+﻿@using Prototype.Web.Helpers
+@model Prototype.Web.Models.SubjectViewModel
+
+@{
+    ViewBag.Title = "Add Subject";
+}
+
+<h2>Create new Subject</h2>
+
+<a href="@Url.Action("Index", "Subject")">< Back</a>
+<br/>
+<br/>
+
+
+@using (Html.BeginForm()) {
+    <div>
+        <fieldset>
+            <legend>Subject Information</legend>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.SubjectView.Name)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.SubjectView.Name)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.SubjectView.Initials)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.SubjectView.Initials)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.SubjectView.Level)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.SubjectView.Level)
+            </div>
+            
+            <div class="editor-label">
+                @Html.LabelFor(m => m.SubjectView.SiteId)
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(m => m.SubjectView.SiteId, 
+                                        Model.Sites.ToSelectList(x => x.SiteId, x=> x.Name, x => x.SiteId == Model.SubjectView.SiteId),
+                                        "-- Select Site --")
+            </div>
+
+            <p>
+                <input type="submit" value="Add Subject" />
+                <a href="@Url.Action("Index", "Subject")">Cancel</a>
+            </p>
+        </fieldset>
+    </div>
+}

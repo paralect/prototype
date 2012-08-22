@@ -15,7 +15,7 @@ namespace Prototype.Platform.Domain
         /// <summary>
         /// ID of aggregate
         /// </summary>
-        public String Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Metadata of event
@@ -35,17 +35,17 @@ namespace Prototype.Platform.Domain
         /// <summary>
         /// Unique Id of event
         /// </summary>
-        public String EventId { get; set; }
+        public string EventId { get; set; }
 
         /// <summary>
         /// Command Id of command that initiate this event
         /// </summary>
-        public String CommandId { get; set; }
+        public string CommandId { get; set; }
 
         /// <summary>
         /// User Id of user who initiated this event
         /// </summary>
-        public String UserId { get; set; }
+        public string UserId { get; set; }
 
         /// <summary>
         /// Datetime when event was stored in Event Store.
@@ -55,6 +55,6 @@ namespace Prototype.Platform.Domain
         /// <summary>
         /// Assembly qualified Event Type name
         /// </summary>
-        public String TypeName { get; set; }
+        public string TypeName { get; set; }
     }
 }

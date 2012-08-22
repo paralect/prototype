@@ -1704,7 +1704,7 @@ $.ui.plugin.add("draggable", "snap", {
 		var i = $(this).data("draggable"), o = i.options;
 		i.snapElements = [];
 
-		$(o.snap.constructor != String ? ( o.snap.items || ':data(draggable)' ) : o.snap).each(function() {
+		$(o.snap.constructor != string ? ( o.snap.items || ':data(draggable)' ) : o.snap).each(function() {
 			var $t = $(this); var $o = $t.offset();
 			if(this != i.element[0]) i.snapElements.push({
 				item: this,

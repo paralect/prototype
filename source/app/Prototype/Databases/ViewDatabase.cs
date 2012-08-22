@@ -6,14 +6,15 @@ namespace Prototype.Databases
 {
     public static class ViewDatabases
     {
-        public const String Mongodb = "mongodb";
-        public const String Sql = "sql";
+        public const string Mongodb = "mongodb";
+        public const string Sql = "sql";
     }
 
     public static class ViewCollections
     {
-        public const String Patients = "patients";
-        public const String PatientsReduced = "patients_reduced";
+        public const string Subjects = "Subjects";
+        public const string SubjectsReduced = "Subjects_reduced";
+        public const string Sites = "Sites";
     }
 
     public class ViewDatabase
@@ -42,14 +43,19 @@ namespace Prototype.Databases
         }
 
 
-        public IDocumentCollection<PatientView> Patients
+        public IDocumentCollection<SubjectView> Subjects
         {
-            get { return GetMongoCollection<PatientView>(ViewCollections.Patients); }
+            get { return GetMongoCollection<SubjectView>(ViewCollections.Subjects); }
         }
 
-        public IDocumentCollection<PatientViewReduced> PatientsReduced
+        public IDocumentCollection<SubjectViewReduced> SubjectsReduced
         {
-            get { return GetMongoCollection<PatientViewReduced>(ViewCollections.PatientsReduced); }
+            get { return GetMongoCollection<SubjectViewReduced>(ViewCollections.SubjectsReduced); }
+        }
+
+        public IDocumentCollection<SiteView> Sites
+        {
+            get { return GetMongoCollection<SiteView>(ViewCollections.Sites); }
         }
     }
 }

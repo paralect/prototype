@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Microsoft.Practices.Unity;
 using Prototype.Common.Interceptors;
-using Prototype.Domain.Aggregates.Patient.Events;
+using Prototype.Domain.Aggregates.Subject.Events;
 using Prototype.Platform.Dispatching;
 using Prototype.Platform.Unity;
 using UnityServiceLocator = Microsoft.Practices.Unity.UnityServiceLocator;
@@ -49,7 +49,7 @@ namespace Prototype.Admin
         private void ConfigureTransport(IUnityContainer container)
         {
             var dispatcher = Dispatcher.Create(d => d
-                .AddHandlers(typeof(PatientCreated).Assembly)
+                .AddHandlers(typeof(SubjectCreated).Assembly)
                 .SetServiceLocator(new UnityServiceLocator(container)));
 
             container.RegisterType<ICommandBus, CommandBus>();

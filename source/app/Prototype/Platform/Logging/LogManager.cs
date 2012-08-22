@@ -64,7 +64,7 @@ namespace Prototype.Platform.Logging
             }
         }
 
-        public void LogCommandHandler(String commandId, String handlerTypeName, Exception e = null)
+        public void LogCommandHandler(String commandId, string handlerTypeName, Exception e = null)
         {
             try
             {
@@ -141,7 +141,7 @@ namespace Prototype.Platform.Logging
             }
         }
 
-        public void LogEventHandler(String commandId, String eventId, String handlerTypeName, Exception exception = null)
+        public void LogEventHandler(String commandId, string eventId, string handlerTypeName, Exception exception = null)
         {
             try
             {

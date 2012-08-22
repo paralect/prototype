@@ -39,7 +39,7 @@ namespace Prototype.Platform.Domain.Transitions.Mongo
             return new Transition(transitionId, aggregateTypeId, datetime, events);
         }
 
-        private static String GetString(BsonDocument doc, String key, String defaultValue = "")
+        private static string GetString(BsonDocument doc, string key, string defaultValue = "")
         {
             BsonValue value;
             var contains = doc.TryGetValue(key, out value);

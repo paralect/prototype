@@ -1,0 +1,39 @@
+﻿@model Prototype.Views.SiteView
+
+@{
+    ViewBag.Title = "Add Site";
+}
+
+<h2>Create new Site</h2>
+
+<a href="@Url.Action("Index", "Site")">< Back</a>
+<br/>
+<br/>
+
+
+@using (Html.BeginForm()) {
+    <div>
+        <fieldset>
+            <legend>Site Information</legend>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Name)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.Name)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Capacity)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.Capacity)
+            </div>
+
+            <p>
+                <input type="submit" value="Add Site" />
+                <a href="@Url.Action("Index", "Site")">Cancel</a>
+            </p>
+        </fieldset>
+    </div>
+}

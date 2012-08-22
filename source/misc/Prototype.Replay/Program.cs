@@ -1,5 +1,5 @@
 ﻿using Microsoft.Practices.Unity;
-using Prototype.Domain.Aggregates.Patient.Events;
+using Prototype.Domain.Aggregates.Subject.Events;
 using Prototype.Platform.Dispatching;
 using Prototype.Platform.Unity;
 using UnityServiceLocator = Microsoft.Practices.Unity.UnityServiceLocator;
@@ -27,7 +27,7 @@ namespace Prototype.Replay
         {
             var dispatcher = Dispatcher.Create(d => d
                 // Only View and Index handlers are used when replaying
-                .AddHandlers(typeof(PatientCreated).Assembly, 
+                .AddHandlers(typeof(SubjectCreated).Assembly, 
                     new[] { "Prototype.Handlers.ViewHandlers", "Prototype.Handlers.IndexHandlers" })
                 .SetServiceLocator(new UnityServiceLocator(container)));
 

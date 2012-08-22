@@ -35,7 +35,7 @@ var jQuery = (function() {
 var jQuery = function( selector, context ) {
 		///	<summary>
 		///     1: $(expression, context) - This function accepts a string containing a CSS selector which is then used to match a set of elements.
-		///     &#10;2: $(html) - Create DOM elements on-the-fly from the provided String of raw HTML.
+		///     &#10;2: $(html) - Create DOM elements on-the-fly from the provided string of raw HTML.
 		///     &#10;3: $(elements) - Wrap jQuery functionality around a single or multiple DOM Element(s).
 		///     &#10;4: $(callback) - A shorthand for $(document).ready().
 		///     &#10;5: $() - As of jQuery 1.4, if you pass no arguments in to the jQuery() method, an empty jQuery set will be returned.
@@ -1128,7 +1128,7 @@ jQuery.extend({
 });
 
 // Populate the class2type map
-jQuery.each("Boolean Number String Function Array Date RegExp Object".split(" "), function(i, name) {
+jQuery.each("Boolean Number string Function Array Date RegExp Object".split(" "), function(i, name) {
 	class2type[ "[object " + name + "]" ] = name.toLowerCase();
 });
 
@@ -6513,12 +6513,12 @@ jQuery.extend({
 				// Remove IE's autoinserted <tbody> from table fragments
 				if ( !jQuery.support.tbody ) {
 
-					// String was a <table>, *may* have spurious <tbody>
+					// string was a <table>, *may* have spurious <tbody>
 					var hasBody = rtbody.test(elem),
 						tbody = tag === "table" && !hasBody ?
 							div.firstChild && div.firstChild.childNodes :
 
-							// String was a bare <thead> or <tfoot>
+							// string was a bare <thead> or <tfoot>
 							wrap[1] === "<table>" && !hasBody ?
 								div.childNodes :
 								[];

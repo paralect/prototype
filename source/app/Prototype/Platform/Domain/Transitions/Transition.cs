@@ -24,7 +24,7 @@ namespace Prototype.Platform.Domain.Transitions
         /// <summary>
         /// Assembly qualified Aggregate Type name
         /// </summary>
-        public String AggregateTypeId { get; set; }
+        public string AggregateTypeId { get; set; }
 
         /// <summary>
         /// Events in commit
@@ -34,7 +34,7 @@ namespace Prototype.Platform.Domain.Transitions
         /// <summary>
         /// Initializes a new instance of the <see cref="T:System.Object"/> class.
         /// </summary>
-        public Transition(TransitionId transitionId, String aggregateTypeId, DateTime timestamp, List<TransitionEvent> events)
+        public Transition(TransitionId transitionId, string aggregateTypeId, DateTime timestamp, List<TransitionEvent> events)
         {
             Id = transitionId;
             AggregateTypeId = aggregateTypeId;

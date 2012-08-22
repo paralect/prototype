@@ -146,7 +146,7 @@ namespace Prototype.Platform.Dispatching
 
             if (handlers.Count < 1)
             {
-                String errorMessage = String.Format("Handler for type {0} doesn't found.", messageType.FullName);
+                string errorMessage = String.Format("Handler for type {0} doesn't found.", messageType.FullName);
                 throw new Exception(errorMessage);
             }
 

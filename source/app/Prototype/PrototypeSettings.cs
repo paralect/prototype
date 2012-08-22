@@ -4,8 +4,8 @@ namespace Prototype
 {
     public class PrototypeSettings
     {
-        public String MongoEventsConnectionString { get; set; }
-        public String MongoViewConnectionString { get; set; }
-        public String MongoLogsConnectionString { get; set; }
+        public string MongoEventsConnectionString { get; set; }
+        public string MongoViewConnectionString { get; set; }
+        public string MongoLogsConnectionString { get; set; }
     }
 }

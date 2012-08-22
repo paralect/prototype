@@ -64,7 +64,7 @@ namespace Prototype
 
             // 2. Configure uniform 
             var uniform = UniformDatabase.Create(config => config
-                .RegisterDocuments(typeof(PatientView).Assembly)
+                .RegisterDocuments(typeof(SubjectView).Assembly)
                 .RegisterDatabase(ViewDatabases.Mongodb, mongodbDatabase));
 
             container.RegisterInstance(uniform);

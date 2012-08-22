@@ -4,7 +4,7 @@ namespace Prototype.Admin.Models
 {
     public class MessageJsonModel
     {
-        public String Metadata { get; set; }
-        public String Message { get; set; }
+        public string Metadata { get; set; }
+        public string Message { get; set; }
     }
 }
