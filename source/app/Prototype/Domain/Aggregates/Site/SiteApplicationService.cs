@@ -25,7 +25,7 @@ namespace Prototype.Domain.Aggregates.Site
 
         public void Handle(DeleteSite c)
         {
-            _sites.Perform(c.Id, a=> a.Delete(c));
+            _sites.Perform(c.Id, a=> a.Delete(c.Reason));
         }
     }
 }

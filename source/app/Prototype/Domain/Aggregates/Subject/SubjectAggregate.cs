@@ -11,14 +11,14 @@ namespace Prototype.Domain.Aggregates.Subject
         public void Create(CreateSubject c)
         {
             Apply(new SubjectCreated
-                {
-                    Id = c.Id,
-                    DateOfBirth = c.DateOfBirth,
-                    Initials = c.Initials,
-                    Level = c.Level,
-                    Name = c.Name,
-                    SiteId = c.SiteId
-                });
+            {
+                Id = c.Id,
+                DateOfBirth = c.DateOfBirth,
+                Initials = c.Initials,
+                Level = c.Level,
+                Name = c.Name,
+                SiteId = c.SiteId
+            });
         }
 
         public void Update(UpdateSubject c)
@@ -28,14 +28,14 @@ namespace Prototype.Domain.Aggregates.Subject
                 throw new InvalidOperationException("Level should be higher than current");
 
             Apply(new SubjectUpdated
-                {
-                    Id = State.Id,
-                    DateOfBirth = c.DateOfBirth,
-                    Initials = c.Initials,
-                    Level = c.Level,
-                    Name = c.Name,
-                    SiteId = c.SiteId
-                });
+            {
+                Id = State.Id,
+                DateOfBirth = c.DateOfBirth,
+                Initials = c.Initials,
+                Level = c.Level,
+                Name = c.Name,
+                SiteId = c.SiteId
+            });
         }
 
         public void Delete(String reason)

@@ -75,6 +75,7 @@
     <Compile Include="Domain\Aggregates\Site\SiteAggregate.cs" />
     <Compile Include="Domain\Aggregates\Site\SiteApplicationService.cs" />
     <Compile Include="Domain\Aggregates\Site\SiteState.cs" />
+    <Compile Include="Handlers\ViewHandlers\HistoryHandlers\SubjectHistoryViewHandler.cs" />
     <Compile Include="Handlers\ViewHandlers\SiteViewHandler.cs" />
     <Compile Include="Handlers\ViewHandlers\SubjectReducedViewHandler.cs" />
     <Compile Include="Handlers\ViewHandlers\SubjectViewHandler.cs" />
