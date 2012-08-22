@@ -4,7 +4,7 @@
 @using Prototype.Admin.Helpers
 
 @{
-    ViewBag.Title = "ABE Monitor";
+    ViewBag.Title = "Prototype Monitor";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }     
 
@@ -20,7 +20,7 @@
         }
     </script>
 
-    <h1>ABE Monitor</h1>
+    <h1>Prototype Monitor</h1>
     
     @{
         var showAll = ViewData["mode"].ToString() == "";
@@ -82,7 +82,7 @@
 
                     <div class="json">
                         @{ var commandJson = MessageHelper.GetJson(logRecord.Command.CommandDocument); }
-                        <b>Command (@logRecord.Command.Metadata.TypeName): </b>
+                        <b>@logRecord.Command.Metadata.TypeName </b>
                         @MetadataBlock(commandJson.Metadata, logRecord.Command.Metadata.CommandId + "-cmd-metadata")
                         <div><pre>@Html.Raw(commandJson.Message)</pre></div>
                     </div>
@@ -91,7 +91,7 @@
                         @foreach (var evnt in logRecord.Events.Items)
                         {
                             var eventJson = MessageHelper.GetJson(evnt.EventDocument);
-                            <b>Event (@evnt.Metadata.TypeName): </b> 
+                            <b>@evnt.Metadata.TypeName </b> 
                             @MetadataBlock(eventJson.Metadata, evnt.Metadata.CommandId + "-metadata")
                             <div>
                                 <pre>@Html.Raw(eventJson.Message)</pre>

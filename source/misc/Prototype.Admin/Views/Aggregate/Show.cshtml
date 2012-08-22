@@ -5,14 +5,14 @@
 @using Prototype.Admin.Helpers
 
 @{
-    ViewBag.Title = "Aggregates";
+    ViewBag.Title = "Prototype Aggregates";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div style="font-family: Arial;">
     <h1 style="padding-bottom: 15px;">Aggregate Explain</h1>
 
-    Enter ID of your aggregate to see current state, events and some additional info:
-    <br/>
+    <div style="padding: 10px 0px 10px 2px;">Enter ID of your aggregate to see current state, events and some additional info:</div>
+    
     <form action="@Url.Action("Show", "Aggregate")" method="GET">
         <table style="margin: 5px 0px 0px 0px;">
             <tr>
@@ -100,7 +100,7 @@ else
                             </div>
 
                             <div class="json">
-                                <b>Event (@transitionEvent.TypeId): </b>
+                                <b>@metadata.TypeName </b>
                                 @{ var json = MessageHelper.GetJson(evnt); }
                                 @MetadataBlock(json.Metadata, metadata.EventId + "-metadata")
                                 <div>

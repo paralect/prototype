@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
+using MongoDB.Bson;
 using Prototype.Databases;
 using Prototype.Domain.Aggregates.Patient.Commands;
 using Prototype.Views;
@@ -40,7 +41,7 @@ namespace Prototype.Web.Controllers
         {
             _bus.Send(new CreatePatient()
             {
-                Id = Guid.NewGuid().ToString(),
+                Id = ObjectId.GenerateNewId().ToString(),
                 Initials = view.Initials,
                 Level = view.Level,
                 DateOfBirth = view.DateOfBirth,
