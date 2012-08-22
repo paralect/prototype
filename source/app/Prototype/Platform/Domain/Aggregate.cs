@@ -53,6 +53,9 @@ namespace Prototype.Platform.Domain
 
         public void Apply(IEvent evnt)
         {
+            if (String.IsNullOrEmpty(evnt.Id))
+                throw new Exception(String.Format("Event {0} has null (or empty) ID property. Make sure you specify it on event creation", evnt.GetType().FullName));
+
             StateSpooler.Spool(_state, evnt);
             _changes.Add(evnt);
         }

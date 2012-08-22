@@ -12,7 +12,7 @@ namespace Prototype.Domain.Aggregates.Patient
         {
             Apply(new PatientCreated()
             {
-                Id = State.Id,
+                Id = c.Id,
                 DateOfBirth = c.DateOfBirth,
                 Initials = c.Initials,
                 Level = c.Level,
