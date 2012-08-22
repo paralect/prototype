@@ -1,0 +1,80 @@
+﻿/* Monitor and Aggregate pages
+-------------------------------*/
+
+.date
+{
+    color:gray; font-size:10px; vertical-align:middle;
+}
+        
+.exception
+{
+    border: 1px solid red; padding: 4px 4px 4px 10px; font-family:Courier New;
+    margin-top: 3px;
+    font-size:13px;
+    display:none;
+}
+        
+.json
+{
+    border: 1px solid #cccccc; 
+    padding: 4px 4px 4px 4px; 
+    font-family:Courier New;
+    margin-top: 3px;
+    font-size:14px;
+    background-color:#f5f5f5;
+    /*display:none;*/
+}        
+        
+.errorLink:link, .errorLink:hover, .errorLink:visited
+{
+    font-weight:bold;
+    color: Red;
+    text-decoration: none;
+    border-bottom: 1px dashed red;
+}
+        
+.command:link, .command:hover, .command:visited
+{
+    font-weight:bold;
+    text-decoration: none;
+    border-bottom: 1px dashed #2244BB;
+    color: #2244BB;
+}        
+        
+.info
+{
+    padding: 10px; display:none; border: 1px solid gray;
+    margin-top:4px;
+}
+        
+.info .entityId 
+{
+    font-size: 12px;
+    padding-bottom: 3px;
+    color: Gray;
+}
+        
+.tabs {
+    margin: 20px 5px 20px -10px;
+}
+        
+.tabs a 
+{
+    padding: 4px 12px 5px 12px;
+}
+        
+.tabs a.active {
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -o-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -khtml-border-radius: 4px;
+    border-radius: 4px;
+    background: #F9F5E4;
+    text-decoration: none;
+    color: black;
+}
+
+pre {
+    margin: 0px;
+}

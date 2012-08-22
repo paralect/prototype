@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Prototype.Platform.Dispatching;
+using Prototype.Platform.Domain.Transitions;
 
 namespace Prototype.Platform.Domain
 {
@@ -22,6 +24,11 @@ namespace Prototype.Platform.Domain
 
             foreach (var evnt in events)
                 InvokeMethodOn(state, evnt);
+        }
+
+        public static void Spool(Object state, IEnumerable<Transition> transitions)
+        {
+            Spool(state, transitions.SelectMany(t => t.Events).Select(e => (IEvent) e.Data));
         }
 
         private static void InvokeMethodOn(Object state, Object message)

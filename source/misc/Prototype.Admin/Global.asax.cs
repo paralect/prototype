@@ -4,37 +4,56 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Microsoft.Practices.Unity;
+using Prototype.Common.Interceptors;
+using Prototype.Domain.Aggregates.Patient.Events;
+using Prototype.Platform.Dispatching;
+using Prototype.Platform.Unity;
+using UnityServiceLocator = Microsoft.Practices.Unity.UnityServiceLocator;
 
 namespace Prototype.Admin
 {
-    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
-    // visit http://go.microsoft.com/?LinkId=9394801
-
-    public class MvcApplication : System.Web.HttpApplication
+    public class PrototypeAdminApplication : System.Web.HttpApplication
     {
-        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+        protected void Application_Start()
         {
-            filters.Add(new HandleErrorAttribute());
+            var container = HttpApplicationUnityContext.Current;
+
+            // Order of configurators is important
+            ConfigureMvc(container);
+            Configuration.ConfigureSettings(container);
+            Configuration.ConfigureMongoDB(container);
+            ConfigureTransport(container);
+            Configuration.ConfigureEventStore(container);
         }
 
-        public static void RegisterRoutes(RouteCollection routes)
+        private void ConfigureMvc(IUnityContainer container)
         {
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            AreaRegistration.RegisterAllAreas();
 
-            routes.MapRoute(
+            // Registering filters
+            GlobalFilters.Filters.Add(new HandleErrorAttribute());
+
+            // Registing routes
+            RouteTable.Routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            RouteTable.Routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
 
+            // Configure resolver for MVC controllers, filters etc.
+            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
 
-        protected void Application_Start()
+        private void ConfigureTransport(IUnityContainer container)
         {
-            AreaRegistration.RegisterAllAreas();
+            var dispatcher = Dispatcher.Create(d => d
+                .AddHandlers(typeof(PatientCreated).Assembly)
+                .SetServiceLocator(new UnityServiceLocator(container)));
 
-            RegisterGlobalFilters(GlobalFilters.Filters);
-            RegisterRoutes(RouteTable.Routes);
+            container.RegisterType<ICommandBus, CommandBus>();
+            container.RegisterInstance<IDispatcher>(dispatcher);
         }
     }
 }

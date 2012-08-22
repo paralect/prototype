@@ -1,0 +1,205 @@
+﻿@model List<Prototype.Platform.Logging.LogRecord>
+@using MongoDB.Bson
+@using MongoDB.Bson.IO      
+@using Prototype.Admin.Helpers
+
+@{
+    ViewBag.Title = "ABE Monitor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}     
+
+    <div style="font-family: Arial;">
+
+    <script>
+        $(document).ready(function () {
+            //alert('asdfadf');
+        });
+
+        function toggle(id) {
+            $(id).toggle();
+        }
+    </script>
+
+    <h1>ABE Monitor</h1>
+    
+    @{
+        var showAll = ViewData["mode"].ToString() == "";
+        var showOnlyErrors = ViewData["mode"].ToString() == "errors";
+    }
+    
+    <div class="tabs">
+        <a class="@(showAll ? "active" : "")" href="@Url.Action("Index", "Monitor")">All actions</a>
+        <a class="@(showOnlyErrors ? "active" : "")" href="@Url.Action("Index", "Monitor", new { mode = "errors" })">Actions with errors only</a> 
+    </div>
+    
+    @if (showOnlyErrors && Model.Count == 0)
+    {
+        <i>Hooray! No errors yet.</i>
+    }
+    
+    @helper Separator(String text){
+        <div style="border-bottom: solid #eaeaea 1px; margin: 15px 0px 5px 0px;">
+            <b>@text</b>
+        </div>
+    }
+    
+        @{ var step = 0; }
+        @foreach (var logRecord in Model)
+        { 
+            <div style="margin-top:4px;">
+                
+                @{
+            var dateTime = logRecord.Command.Metadata.CreatedDate;
+            var span = DateTime.UtcNow.Subtract(dateTime);
+                }
+        
+                @if (span.TotalSeconds <= 60) { if (step < 1) { @Separator("In last minute")   } step = 1; } else
+                if (span.TotalMinutes <= 5) { if (step < 2) { @Separator("In last 5 minutes")} step = 2; } else 
+                if (span.TotalMinutes <= 30) { if (step < 3) { @Separator("In last 30 minute")} step = 3; } else
+                if (span.TotalMinutes <= 60) { if (step < 4) { @Separator("In last hour")} step = 4; } else
+                if (span.TotalMinutes <= 120) { if (step < 5) { @Separator("In last two hours")} step = 5; } else
+                if (span.TotalDays <= 1) { if (step < 6) { @Separator("In last day")} step = 6; } else 
+                if (step < 7) { @Separator("More than one day ago"); step = 7; }
+        
+                <span class="date" style="min-width: 300px;">
+                    @logRecord.Command.Metadata.CreatedDate.ToString("yyyy-MM-dd hh:mm:ss");
+                </span>
+        
+                <a class="command" href="#" onclick="toggle('#@logRecord.Command.Metadata.CommandId'); return false;">
+                    @(String.IsNullOrEmpty(logRecord.Command.Metadata.TypeName) ? "(empty)" : logRecord.Command.Metadata.TypeName)</a>
+
+                @if (logRecord.Errors > 0)
+                {
+                    <span style="color:red; font-weight: bold;">&mdash; @logRecord.Errors error(s)</span>
+                }
+        
+                <br />
+
+                <div class="info" id="@logRecord.Command.Metadata.CommandId">
+                    <div class="entityId">
+                        <b>Command Id:</b> @logRecord.Command.Metadata.CommandId
+                    </div>
+
+                    <div class="json">
+                        @{ var commandJson = MessageHelper.GetJson(logRecord.Command.CommandDocument); }
+                        <b>Command (@logRecord.Command.Metadata.TypeName): </b>
+                        @MetadataBlock(commandJson.Metadata, logRecord.Command.Metadata.CommandId + "-cmd-metadata")
+                        <div><pre>@Html.Raw(commandJson.Message)</pre></div>
+                    </div>
+
+                    <div class="json">
+                        @foreach (var evnt in logRecord.Events.Items)
+                        {
+                            var eventJson = MessageHelper.GetJson(evnt.EventDocument);
+                            <b>Event (@evnt.Metadata.TypeName): </b> 
+                            @MetadataBlock(eventJson.Metadata, evnt.Metadata.CommandId + "-metadata")
+                            <div>
+                                <pre>@Html.Raw(eventJson.Message)</pre>
+                                
+                            </div>
+                        }
+                    </div>
+
+                    <b>Command Handlers:</b> 
+
+                    <div style="padding:2px;">
+
+                        @foreach (var commandHandler in logRecord.Command.Handlers.Items)
+                        {
+
+                            <div style="padding-top: 3px;">
+                                <span class="date">
+                                    @commandHandler.EndedDate.ToString("yyyy-MM-dd hh:mm:ss")
+                                </span>
+                                &nbsp;
+                                @(String.IsNullOrEmpty(commandHandler.TypeName) ? "(empty)" : commandHandler.TypeName)
+
+                                <span style="color: @(commandHandler.ErrorMessage == "" ? "Green" : "Red")">
+
+
+                                    @if (commandHandler.ErrorMessage != "")
+                                    {
+                        
+                                        <text>&mdash;</text>
+                                        <a class="errorLink" href="#" onclick="toggle('#@commandHandler.HandlerId'); return false;">
+                                            @commandHandler.ErrorMessage
+                                        </a>
+                                    }
+
+                                </span>
+
+                                @if (commandHandler.ErrorMessage != null)
+                                {
+                                    <div class="exception" id="@commandHandler.HandlerId">
+                                        <b>Message:</b> @commandHandler.ErrorMessage
+                                        <br />
+                                        <b>Stack Trace:</b> @Html.Raw(commandHandler.ErrorStackTrace.Replace("\n", "<br />"))
+                                    </div>
+                                }
+
+                            </div>
+
+                        }
+
+                    </div>
+
+                    <div style="padding-top:7px;"><b>Event Handlers:</b> </div>
+
+                    <div style="padding:2px 2px 2px 2px;">
+
+                        @foreach (var eventRecord in logRecord.Events.Items)
+                        {
+                            foreach (var eventHandler in eventRecord.Handlers.Items)
+                            {
+
+                                <div style="padding-top: 3px;">
+                                    <span class="date">
+                                        @eventHandler.EndedDate.ToString("yyyy-MM-dd hh:mm:ss")
+                                    </span>
+                                    &nbsp;
+                                    @eventHandler.TypeName
+
+                                    <span style="color: @(eventHandler.ErrorMessage == "" ? "Green" : "Red")">
+                                        @if (eventHandler.ErrorMessage != "")
+                                        {
+                                            <text>&mdash;</text>
+                                            <a class="errorLink" href="#" onclick="toggle('#@eventHandler.HandlerId'); return false;">
+                                                @eventHandler.ErrorMessage
+                                            </a>
+                                        }
+                                    </span>
+
+                                    @if (eventHandler.ErrorMessage != "")
+                                    {
+                                        <div class="exception" id="@eventHandler.HandlerId">
+                                            <b>Message:</b> @eventHandler.ErrorMessage
+                                            <pre><b>Stack Trace:</b> @eventHandler.ErrorStackTrace</pre>
+
+                                            @*
+                        @Html.Raw(eventHandler.ErrorStackTrace.Replace("\n", "<br />"))
+                        
+                        *@
+                                        </div>
+                                    }
+
+                                </div>
+
+                            }
+                        }
+
+                    </div>
+        
+                </div>
+  
+            </div>
+    }
+
+    </div>
+
+@helper MetadataBlock(String metadataJsonString, String blockId)
+{
+    <a href="#" onclick="$('#@blockId').toggle(); return false;">Show Metadata</a>
+    <div id="@blockId" style="display: none; background-color: #e7e7e7; color:black;">
+        <pre>@Html.Raw(metadataJsonString)</pre>
+    </div>
+}

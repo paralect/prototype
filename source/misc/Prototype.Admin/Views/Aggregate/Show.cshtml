@@ -1,0 +1,131 @@
+﻿@model Prototype.Admin.Models.AggregatePage
+@using MongoDB.Bson
+@using MongoDB.Bson.IO     
+@using Prototype.Platform.Domain
+@using Prototype.Admin.Helpers
+
+@{
+    ViewBag.Title = "Aggregates";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div style="font-family: Arial;">
+    <h1 style="padding-bottom: 15px;">Aggregate Explain</h1>
+
+    Enter ID of your aggregate to see current state, events and some additional info:
+    <br/>
+    <form action="@Url.Action("Show", "Aggregate")" method="GET">
+        <table style="margin: 5px 0px 0px 0px;">
+            <tr>
+                <th>Aggregate Id: </th>
+                <td>
+                    <input type="text" name="id" value=""/>
+                    <input type="submit" value="Explain" style="font-size: 1em;"/>
+                </td>
+            </tr>
+        </table>
+    </form>   
+</div>    
+
+@if (Model.Transitions == null)
+{
+    @WeHaveProblems();
+}
+else
+{
+    @ShowAggregate();
+}
+
+
+@helper WeHaveProblems()
+    {
+    if (!String.IsNullOrEmpty(Model.Id))
+    {
+        <b> Aggregate with id = @(Model.Id ?? "null") doesn't exists</b>
+    }
+}
+
+@helper ShowAggregate()
+    {
+    <text>
+        <div style="font-family: Arial;">
+            <br/>
+            <table>
+                <tr><td><b>AggregateId</b></td><td>@(Model.Id ?? "null")</td></tr>
+                <tr><td><b>Number of events</b></td><td>@(Model.EventsCount)</td></tr>
+                <tr><td><b>Number of transitions</b></td><td>@(Model.Transitions.Count)</td></tr>
+            </table>
+            
+            @Separator("Current state")
+            
+            <div style="display: block;">
+                <div class="json">
+                    @{ var aggregateJson = MessageHelper.GetJson(Model.CurrentAggregateState); }
+                    <div>
+                        @if (String.IsNullOrEmpty(aggregateJson.Message))
+                        {
+                            <pre>To see here state of this aggregate you need to run transferring.</pre>
+                        }
+                        else
+                        {
+                            <pre>@Html.Raw(aggregateJson.Message)</pre>
+                        }
+                    </div>
+                </div>    
+            </div>             
+
+        
+            @Separator("Events")
+
+            @foreach (var transition in @Model.Transitions)
+            {
+
+                foreach (var transitionEvent in transition.Events)
+                {
+                    var evnt = (IEvent)transitionEvent.Data;
+                    var metadata = evnt.Metadata;
+             
+                    <div style="margin-top:4px;">   
+                        <span class="date" style="min-width: 300px;">
+                            @evnt.Metadata.StoredDate.ToString("yyyy-MM-dd hh:mm:ss");
+                        </span>
+                
+                        <a class="command" href="#" onclick="$('#@metadata.EventId').toggle(); return false;">
+                            @(String.IsNullOrEmpty(metadata.TypeName) ? "(type name not specified)" : metadata.TypeName)</a>
+            
+                        <br/>    
+            
+                        <div class="info" id="@metadata.EventId">
+                            <div class="entityId">
+                                <b>Type:</b> @transitionEvent.TypeId
+                            </div>
+
+                            <div class="json">
+                                <b>Event (@transitionEvent.TypeId): </b>
+                                @{ var json = MessageHelper.GetJson(evnt); }
+                                @MetadataBlock(json.Metadata, metadata.EventId + "-metadata")
+                                <div>
+                                    <pre>@Html.Raw(json.Message)</pre>
+                                </div>
+                            </div>    
+                        </div> 
+                    </div>
+                }
+            }
+        </div>
+    </text>
+}
+
+@helper MetadataBlock(String metadataJsonString, String blockId)
+    {
+    <a href="#" onclick="$('#@blockId').toggle(); return false;">Show Metadata</a>
+    <div id="@blockId" style="display: none; background-color: #e7e7e7; color:black;">
+        <pre>@Html.Raw(metadataJsonString)</pre>
+    </div>
+}
+
+@helper Separator(String text)
+    {
+    <div style="border-bottom: solid #eaeaea 1px; margin: 15px 0px 5px 0px;">
+        <b>@text</b>
+    </div>
+}
