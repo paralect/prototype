@@ -28,7 +28,8 @@ namespace Prototype.Web
             ConfigureSettings(container);
             ConfigureMvc(container);
             ConfigureMongoDB(container);
-            ConfigurePlatform(container);
+            ConfigureTransport(container);
+            ConfigureEventStore(container);
             ConfigureUniform(container);
         }
 
@@ -74,24 +75,27 @@ namespace Prototype.Web
             DateTimeSerializationOptions.Defaults = DateTimeSerializationOptions.UtcInstance;
         }
 
-        private void ConfigurePlatform(IUnityContainer container)
+        private void ConfigureTransport(IUnityContainer container)
+        {
+            var dispatcher = Dispatcher.Create(d => d
+                .AddHandlers(typeof(PatientCreated).Assembly)
+                .SetServiceLocator(new UnityServiceLocator(container)));
+
+            container.RegisterType<ICommandBus, CommandBus>();
+            container.RegisterInstance<IDispatcher>(dispatcher);
+        }
+
+        private void ConfigureEventStore(IUnityContainer container)
         {
             var settings = container.Resolve<PrototypeSettings>();
+            var dispatcher = container.Resolve<IDispatcher>();
 
             var transitionsRepository = new MongoTransitionRepository(settings.MongoEventsConnectionString);
-            
-            var dispatcher = Dispatcher.Create(d => d
-                .AddHandlers(typeof (PatientCreated).Assembly)
-                .SetServiceLocator(new UnityServiceLocator(container))
-            );
 
-            container
-                .RegisterInstance<ITransitionRepository>(transitionsRepository)
+            container.RegisterInstance<ITransitionRepository>(transitionsRepository)
                 .RegisterInstance<IEventBus>(new DispatcherEventBus(dispatcher))
-                .RegisterInstance<IDispatcher>(dispatcher)
                 .RegisterType<IRepository, Repository>()
-                .RegisterType(typeof (IRepository<>), typeof (Repository<>))
-                .RegisterType<ICommandBus, CommandBus>();
+                .RegisterType(typeof (IRepository<>), typeof (Repository<>));
         }
 
         private void ConfigureUniform(IUnityContainer container)
@@ -100,15 +104,11 @@ namespace Prototype.Web
 
             // 1. Create databases
             var mongodbDatabase = new MongodbDatabase(settings.MongoViewConnectionString);
-            //var mysqlDatabase = new AdoNetDatabase("server=127.0.0.1;Uid=root;Pwd=qwerty;Database=test;");
-
 
             // 2. Configure uniform 
             var uniform = UniformDatabase.Create(config => config
                 .RegisterDocuments(typeof(PatientView).Assembly)
-                .RegisterDatabase(ViewDatabases.Mongodb, mongodbDatabase)
-                //.RegisterDatabase(SampleDatabases.Sql, mongodbDatabase)
-            );
+                .RegisterDatabase(ViewDatabases.Mongodb, mongodbDatabase));
 
             container.RegisterInstance(uniform);            
         }
