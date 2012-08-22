@@ -24,12 +24,13 @@ namespace Prototype.Handlers.ViewHandlers
         {
             _subjects.Save(s =>
             {
+                s.UpdateName(e.Name, e.Initials);
                 s.SubjectId = e.Id;
                 s.DateOfBirth = e.DateOfBirth;
                 s.Level = e.Level;
-                s.UpdateName(e.Name, e.Initials);
                 s.SiteId = e.SiteId;
                 s.SiteName = GetSiteName(e.SiteId);
+                s.Version = 1;
             });
         }
 
@@ -41,6 +42,7 @@ namespace Prototype.Handlers.ViewHandlers
                 s.DateOfBirth = e.DateOfBirth;
                 s.Level = e.Level;
                 s.UpdateName(e.Name, e.Initials);
+                s.Version++;
 
                 if (string.Equals(s.SiteId, e.SiteId) == false)
                 {

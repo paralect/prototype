@@ -26,9 +26,9 @@ namespace Prototype.Web.Controllers
             var subjects = _viewDatabase.Subjects.FindAll().ToList();
 
             return View(new SubjectPageViewModel
-                {
-                    Subjects = subjects
-                });
+            {
+                Subjects = subjects
+            });
         }
 
         public ActionResult Create()
@@ -40,14 +40,14 @@ namespace Prototype.Web.Controllers
         public ActionResult Create([Bind(Prefix  = "SubjectView")] SubjectView view)
         {
             _bus.Send(new CreateSubject
-                {
-                    Id = ObjectId.GenerateNewId().ToString(),
-                    Initials = view.Initials,
-                    Level = view.Level,
-                    DateOfBirth = view.DateOfBirth,
-                    Name = view.Name,
-                    SiteId = view.SiteId
-                });
+            {
+                Id = ObjectId.GenerateNewId().ToString(),
+                Initials = view.Initials,
+                Level = view.Level,
+                DateOfBirth = view.DateOfBirth,
+                Name = view.Name,
+                SiteId = view.SiteId
+            });
 
             return RedirectToAction("Index");
         }
@@ -62,14 +62,14 @@ namespace Prototype.Web.Controllers
         public ActionResult Edit([Bind(Prefix = "SubjectView")] SubjectView view)
         {
             _bus.Send(new UpdateSubject
-                {
-                    Id = view.SubjectId,
-                    Initials = view.Initials,
-                    Level = view.Level,
-                    DateOfBirth = view.DateOfBirth,
-                    Name = view.Name,
-                    SiteId = view.SiteId
-                });
+            {
+                Id = view.SubjectId,
+                Initials = view.Initials,
+                Level = view.Level,
+                DateOfBirth = view.DateOfBirth,
+                Name = view.Name,
+                SiteId = view.SiteId
+            });
 
             return RedirectToAction("Index");
         }
@@ -86,10 +86,10 @@ namespace Prototype.Web.Controllers
             view = view ?? new SubjectView();
 
             var model = new SubjectViewModel
-                {
-                    SubjectView = view,
-                    Sites = _viewDatabase.Sites.FindAll().ToList()
-                };
+            {
+                SubjectView = view,
+                Sites = _viewDatabase.Sites.FindAll().ToList()
+            };
 
             return model;
         }

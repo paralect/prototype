@@ -13,7 +13,7 @@ namespace Prototype.Databases
     public static class ViewCollections
     {
         public const string Subjects = "subjects";
-        public const string SubjectsHistory = "subjects";
+        public const string SubjectsHistory = "subjects_history";
         public const string SubjectsReduced = "subjects_reduced";
 
         public const string Sites = "sites";

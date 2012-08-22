@@ -77,7 +77,7 @@
     <Compile Include="Domain\Aggregates\Site\SiteState.cs" />
     <Compile Include="Handlers\ViewHandlers\HistoryHandlers\SubjectHistoryViewHandler.cs" />
     <Compile Include="Handlers\ViewHandlers\SiteViewHandler.cs" />
-    <Compile Include="Handlers\ViewHandlers\SubjectReducedViewHandler.cs" />
+    <Compile Include="Handlers\ViewHandlers\ReducedHandlers\SubjectReducedViewHandler.cs" />
     <Compile Include="Handlers\ViewHandlers\SubjectViewHandler.cs" />
     <Compile Include="Databases\MongoLogsDatabase.cs" />
     <Compile Include="Databases\MongoViewDatabase.cs" />
@@ -157,7 +157,7 @@
     <Compile Include="Databases\ViewDatabase.cs" />
     <Compile Include="Views\SiteView.cs" />
     <Compile Include="Views\SubjectView.cs" />
-    <Compile Include="Views\SubjectViewReduced.cs" />
+    <Compile Include="Views\ReducedViews\SubjectViewReduced.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Handlers\IndexHandlers\" />

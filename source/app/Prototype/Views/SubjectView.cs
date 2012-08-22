@@ -8,7 +8,7 @@ namespace Prototype.Views
     {
         [DocumentId, BsonId]
         public string SubjectId { get; set; }
-
+        public Int32 Version { get; set; }
 
         public string Name { get; set; }
         public string Initials { get; set; }
