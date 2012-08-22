@@ -6,7 +6,7 @@ using Prototype.Platform.Domain;
 
 namespace Prototype.Tests.AggregateTests.SubjectTests
 {
-    public class when_Subject_deleted : AggregateTest<SubjectAggregate>
+    public class when_subject_deleted : AggregateTest<SubjectAggregate>
     {
         public override IEnumerable<IEvent> Given()
         {

@@ -12,13 +12,17 @@ namespace Prototype.Databases
 
     public static class ViewCollections
     {
-        public const string Subjects = "Subjects";
-        public const string SubjectsReduced = "Subjects_reduced";
-        public const string Sites = "Sites";
+        public const string Subjects = "subjects";
+        public const string SubjectsHistory = "subjects";
+        public const string SubjectsReduced = "subjects_reduced";
+
+        public const string Sites = "sites";
+        public const string SitesHistory = "sites_history";
     }
 
     public class ViewDatabase
     {
+        #region ViewDatabase 
         private readonly UniformDatabase _db;
 
         public ViewDatabase(UniformDatabase db)
@@ -42,10 +46,16 @@ namespace Prototype.Databases
             return _db.GetCollection<TDocument>(ViewDatabases.Sql, tableName);
         }
 
+        #endregion
 
         public IDocumentCollection<SubjectView> Subjects
         {
             get { return GetMongoCollection<SubjectView>(ViewCollections.Subjects); }
+        }
+
+        public IDocumentCollection<SubjectView> SubjectsHistory
+        {
+            get { return GetMongoCollection<SubjectView>(ViewCollections.SubjectsHistory); }
         }
 
         public IDocumentCollection<SubjectViewReduced> SubjectsReduced
@@ -56,6 +66,11 @@ namespace Prototype.Databases
         public IDocumentCollection<SiteView> Sites
         {
             get { return GetMongoCollection<SiteView>(ViewCollections.Sites); }
+        }
+
+        public IDocumentCollection<SiteView> SitesHistory
+        {
+            get { return GetMongoCollection<SiteView>(ViewCollections.SitesHistory); }
         }
     }
 }

@@ -9,10 +9,10 @@ namespace Prototype.Domain.Aggregates.Site
 
         public string Name { get; set; }
         public int Capacity { get; set; }
-        public int AmountOfPatiends { get; set; }
 
         public void On(SiteCreated e)
         {
+            Id = e.Id;
             Name = e.Name;
             Capacity = e.Capacity;
         }

@@ -58,9 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AggregateTest.cs" />
-    <Compile Include="AggregateTests\PatientTests\when_patient_created.cs" />
-    <Compile Include="AggregateTests\PatientTests\when_patient_deleted.cs" />
-    <Compile Include="AggregateTests\PatientTests\when_patient_updated.cs" />
+    <Compile Include="AggregateTests\SubjectTests\when_subject_created.cs" />
+    <Compile Include="AggregateTests\SubjectTests\when_subject_deleted.cs" />
+    <Compile Include="AggregateTests\SubjectTests\when_subject_updated.cs" />
     <Compile Include="ObjectComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

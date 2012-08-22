@@ -6,26 +6,26 @@ namespace Prototype.Domain.Aggregates.Site
 {
     public class SiteApplicationService : IMessageHandler
     {
-        private readonly IRepository<SiteAggregate> _subjects;
+        private readonly IRepository<SiteAggregate> _sites;
 
-        public SiteApplicationService(IRepository<SiteAggregate> subjects)
+        public SiteApplicationService(IRepository<SiteAggregate> sites)
         {
-            _subjects = subjects;
+            _sites = sites;
         }
 
         public void Handle(CreateSite c)
         {
-            _subjects.Perform(c.Id, a => a.Create(c));
+            _sites.Perform(c.Id, a => a.Create(c));
         }
 
         public void Handle(UpdateSite c)
         {
-            _subjects.Perform(c.Id, a => a.Update(c));
+            _sites.Perform(c.Id, a => a.Update(c));
         }
 
         public void Handle(DeleteSite c)
         {
-            _subjects.Perform(c.Id, a=> a.Delete(c));
+            _sites.Perform(c.Id, a=> a.Delete(c));
         }
     }
 }
