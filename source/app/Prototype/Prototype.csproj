@@ -64,9 +64,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Interceptors\LoggingInterceptor.cs" />
+    <Compile Include="Configuration.cs" />
     <Compile Include="Handlers\ViewHandlers\PatientViewHandler.cs" />
-    <Compile Include="MongoViewDatabase.cs" />
-    <Compile Include="MongoEventsDatabase.cs" />
+    <Compile Include="Databases\MongoLogsDatabase.cs" />
+    <Compile Include="Databases\MongoViewDatabase.cs" />
+    <Compile Include="Databases\MongoEventsDatabase.cs" />
     <Compile Include="Platform\Domain\Aggregate.cs" />
     <Compile Include="Domain\Aggregates\Patient\Commands\CreatePatient.cs" />
     <Compile Include="Domain\Aggregates\Patient\Commands\DeletePatient.cs" />
@@ -115,6 +118,16 @@
     <Compile Include="Platform\Dispatching\Interfaces\IMessageHandler.cs" />
     <Compile Include="Platform\Dispatching\Interfaces\IMessageHandlerInterceptor.cs" />
     <Compile Include="Platform\Dispatching\Utils\ReflectionUtils.cs" />
+    <Compile Include="Platform\Logging\CommandHandlerRecord.cs" />
+    <Compile Include="Platform\Logging\CommandHandlerRecordCollection.cs" />
+    <Compile Include="Platform\Logging\CommandRecord.cs" />
+    <Compile Include="Platform\Logging\EventHandlerRecord.cs" />
+    <Compile Include="Platform\Logging\EventHandlerRecordCollection.cs" />
+    <Compile Include="Platform\Logging\EventRecord.cs" />
+    <Compile Include="Platform\Logging\EventRecordCollection.cs" />
+    <Compile Include="Platform\Logging\LogManager.cs" />
+    <Compile Include="Platform\Logging\LogRecord.cs" />
+    <Compile Include="Platform\Mongo\MongoExtensions.cs" />
     <Compile Include="Platform\Mongo\NoDefaultPropertyIdConvention.cs" />
     <Compile Include="Platform\Mongo\ReadonlyMongoCollection.cs" />
     <Compile Include="Platform\Unity\AppDomainUnityContext.cs" />
@@ -127,8 +140,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PrototypeSettings.cs" />
     <Compile Include="CommandBus.cs" />
-    <Compile Include="Stages.cs" />
-    <Compile Include="ViewDatabase.cs" />
+    <Compile Include="PriorityStages.cs" />
+    <Compile Include="Databases\ViewDatabase.cs" />
     <Compile Include="Views\PatientView.cs" />
   </ItemGroup>
   <ItemGroup>

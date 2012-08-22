@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
+using Prototype.Databases;
 using Prototype.Domain.Aggregates.Patient.Commands;
 using Prototype.Views;
 using Prototype.Web.Models;

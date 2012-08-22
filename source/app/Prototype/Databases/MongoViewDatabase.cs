@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using MongoDB.Driver;
 using Prototype.Platform.Mongo;
 using Prototype.Views;
 
-namespace Prototype
+namespace Prototype.Databases
 {
     public class MongoViewDatabase
     {

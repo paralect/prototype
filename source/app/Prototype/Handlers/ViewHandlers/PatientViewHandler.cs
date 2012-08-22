@@ -1,4 +1,5 @@
-﻿using Prototype.Domain.Aggregates.Patient.Events;
+﻿using Prototype.Databases;
+using Prototype.Domain.Aggregates.Patient.Events;
 using Prototype.Platform.Dispatching;
 using Prototype.Platform.Dispatching.Attributes;
 using Prototype.Views;
@@ -6,7 +7,7 @@ using Uniform;
 
 namespace Prototype.Handlers.ViewHandlers
 {
-    [Priority(Stages.ViewHandling)]
+    [Priority(PriorityStages.ViewHandling)]
     public class PatientViewHandler : IMessageHandler
     {
         private readonly IDocumentCollection<PatientView> _patients;

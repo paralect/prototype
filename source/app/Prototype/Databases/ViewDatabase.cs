@@ -2,7 +2,7 @@
 using Prototype.Views;
 using Uniform;
 
-namespace Prototype
+namespace Prototype.Databases
 {
     public static class ViewDatabases
     {

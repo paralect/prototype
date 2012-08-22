@@ -9,7 +9,7 @@ namespace Prototype
     /// We do not guarantee any order of handlers that belong to one stage. They will run in parallel.
     /// But we guarantee strict order for handlers in different stages. 
     /// </summary>
-    public static class Stages
+    public static class PriorityStages
     {
         public const Int32 CommandHandling_Before   = 1;
         public const Int32 CommandHandling          = 2;

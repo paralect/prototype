@@ -3,6 +3,8 @@ using System.Web.Routing;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Options;
+using Prototype.Common.Interceptors;
+using Prototype.Databases;
 using Prototype.Domain.Aggregates.Patient.Events;
 using Prototype.Platform.Dispatching;
 using Prototype.Platform.Domain;
@@ -25,21 +27,13 @@ namespace Prototype.Web
         {
             var container = HttpApplicationUnityContext.Current;
 
-            ConfigureSettings(container);
+            // Order of configurators is important
             ConfigureMvc(container);
-            ConfigureMongoDB(container);
+            Configuration.ConfigureSettings(container);
+            Configuration.ConfigureMongoDB(container);
             ConfigureTransport(container);
-            ConfigureEventStore(container);
-            ConfigureUniform(container);
-        }
-
-        private void ConfigureSettings(IUnityContainer container)
-        {
-            container.RegisterInstance(new PrototypeSettings()
-            {
-                MongoEventsConnectionString = "mongodb://admin(admin):adminpwd0375@localhost:27017/prototype_events",
-                MongoViewConnectionString = "mongodb://admin(admin):adminpwd0375@localhost:27017/prototype_view"
-            });
+            Configuration.ConfigureEventStore(container);
+            Configuration.ConfigureUniform(container);
         }
 
         private void ConfigureMvc(IUnityContainer container)
@@ -61,56 +55,15 @@ namespace Prototype.Web
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
 
-        private void ConfigureMongoDB(IUnityContainer container)
-        {
-            var settings = container.Resolve<PrototypeSettings>();
-            container.RegisterInstance(new MongoViewDatabase(settings.MongoViewConnectionString).EnsureIndexes());
-            container.RegisterInstance(new MongoEventsDatabase(settings.MongoEventsConnectionString));
-
-            // Register bson serializer conventions
-            var myConventions = new ConventionProfile();
-            myConventions.SetIdMemberConvention(new NoDefaultPropertyIdConvention());
-            myConventions.SetIgnoreExtraElementsConvention(new AlwaysIgnoreExtraElementsConvention());
-            BsonClassMap.RegisterConventions(myConventions, t => true);
-            DateTimeSerializationOptions.Defaults = DateTimeSerializationOptions.UtcInstance;
-        }
-
         private void ConfigureTransport(IUnityContainer container)
         {
             var dispatcher = Dispatcher.Create(d => d
                 .AddHandlers(typeof(PatientCreated).Assembly)
+                .AddInterceptor(typeof(LoggingInterceptor))
                 .SetServiceLocator(new UnityServiceLocator(container)));
 
             container.RegisterType<ICommandBus, CommandBus>();
             container.RegisterInstance<IDispatcher>(dispatcher);
-        }
-
-        private void ConfigureEventStore(IUnityContainer container)
-        {
-            var settings = container.Resolve<PrototypeSettings>();
-            var dispatcher = container.Resolve<IDispatcher>();
-
-            var transitionsRepository = new MongoTransitionRepository(settings.MongoEventsConnectionString);
-
-            container.RegisterInstance<ITransitionRepository>(transitionsRepository)
-                .RegisterInstance<IEventBus>(new DispatcherEventBus(dispatcher))
-                .RegisterType<IRepository, Repository>()
-                .RegisterType(typeof (IRepository<>), typeof (Repository<>));
-        }
-
-        private void ConfigureUniform(IUnityContainer container)
-        {
-            var settings = container.Resolve<PrototypeSettings>();
-
-            // 1. Create databases
-            var mongodbDatabase = new MongodbDatabase(settings.MongoViewConnectionString);
-
-            // 2. Configure uniform 
-            var uniform = UniformDatabase.Create(config => config
-                .RegisterDocuments(typeof(PatientView).Assembly)
-                .RegisterDatabase(ViewDatabases.Mongodb, mongodbDatabase));
-
-            container.RegisterInstance(uniform);            
         }
     }
 }

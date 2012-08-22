@@ -1,9 +1,10 @@
 ﻿using System;
 using MongoDB.Driver;
+using MongoDB.Driver.Builders;
 
-namespace Prototype
+namespace Prototype.Databases
 {
-    public class MongoEventsDatabase
+    public class MongoLogsDatabase
     {
         /// <summary>
         /// MongoDB Server
@@ -15,15 +16,12 @@ namespace Prototype
         /// </summary>
         private readonly string _databaseName;
 
-        public MongoUrl MongoUrl { get; private set; }
-
         /// <summary>
         /// Opens connection to MongoDB Server
         /// </summary>
-        public MongoEventsDatabase(String connectionString)
+        public MongoLogsDatabase(String connectionString)
         {
-            MongoUrl = MongoUrl.Create(connectionString);
-            _databaseName = MongoUrl.DatabaseName;
+            _databaseName = MongoUrl.Create(connectionString).DatabaseName;
             _server = MongoServer.Create(connectionString);
         }
 
@@ -43,10 +41,17 @@ namespace Prototype
             get { return _server.GetDatabase(_databaseName); }
         }
 
-        public MongoCollection Transitions
+        public MongoLogsDatabase EnsureIndexes()
         {
-            get { return Database.GetCollection("transitions"); }
+            Logs.EnsureIndex(IndexKeys.Descending("Command.Metadata.CreatedDate"));
+            Logs.EnsureIndex(IndexKeys.Descending("Command.Metadata.CreatedDate").Ascending("Errors"));
+            return this;
         }
 
+
+        public MongoCollection Logs
+        {
+            get { return Database.GetCollection("logs"); }
+        }
     }
 }

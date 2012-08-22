@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks.Dataflow;
 using Microsoft.Practices.Unity;
 using NLog;
+using Prototype.Databases;
 using Prototype.Platform.Dispatching;
 using Prototype.Platform.Domain;
 using Prototype.Platform.Domain.Transitions.Interfaces;
