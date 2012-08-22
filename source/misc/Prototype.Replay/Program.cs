@@ -1,15 +1,7 @@
 ﻿using Microsoft.Practices.Unity;
-using Prototype.Databases;
 using Prototype.Domain.Aggregates.Patient.Events;
 using Prototype.Platform.Dispatching;
-using Prototype.Platform.Domain;
-using Prototype.Platform.Domain.EventBus;
-using Prototype.Platform.Domain.Transitions.Interfaces;
-using Prototype.Platform.Domain.Transitions.Mongo;
 using Prototype.Platform.Unity;
-using Prototype.Views;
-using Uniform;
-using Uniform.Mongodb;
 using UnityServiceLocator = Microsoft.Practices.Unity.UnityServiceLocator;
 
 namespace Prototype.Replay
