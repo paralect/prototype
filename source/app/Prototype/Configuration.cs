@@ -21,9 +21,9 @@ namespace Prototype
         {
             container.RegisterInstance(new PrototypeSettings()
             {
-                MongoEventsConnectionString = "mongodb://admin(admin):adminpwd0375@localhost:27017/prototype_events",
-                MongoViewConnectionString = "mongodb://admin(admin):adminpwd0375@localhost:27017/prototype_view",
-                MongoLogsConnectionString = "mongodb://admin(admin):adminpwd0375@localhost:27017/prototype_logs"
+                MongoEventsConnectionString = "mongodb://localhost:27018/prototype_events",
+                MongoViewConnectionString = "mongodb://localhost:27018/prototype_view",
+                MongoLogsConnectionString = "mongodb://localhost:27018/prototype_logs"
             });
         }
 

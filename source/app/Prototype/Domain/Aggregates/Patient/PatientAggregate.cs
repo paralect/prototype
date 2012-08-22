@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using Prototype.Domain.Aggregates.Patient.Commands;
 using Prototype.Domain.Aggregates.Patient.Events;
 using Prototype.Platform.Domain;
@@ -11,7 +12,7 @@ namespace Prototype.Domain.Aggregates.Patient
         {
             Apply(new PatientCreated()
             {
-                Id = c.Id,
+                Id = State.Id,
                 DateOfBirth = c.DateOfBirth,
                 Initials = c.Initials,
                 Level = c.Level,
@@ -22,9 +23,13 @@ namespace Prototype.Domain.Aggregates.Patient
 
         public void Update(UpdatePatient c)
         {
+            // Example of state manipulation
+            if (c.Level < State.Level)
+                throw new InvalidOperationException("Level should be higher than current");
+
             Apply(new PatientUpdated()
             {
-                Id = c.Id,
+                Id = State.Id,
                 DateOfBirth = c.DateOfBirth,
                 Initials = c.Initials,
                 Level = c.Level,
