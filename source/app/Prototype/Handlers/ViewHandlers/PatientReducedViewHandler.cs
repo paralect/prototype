@@ -1,4 +1,3 @@
-﻿using System;
 using Prototype.Databases;
 using Prototype.Domain.Aggregates.Patient.Events;
 using Prototype.Platform.Dispatching;
@@ -9,13 +8,13 @@ using Uniform;
 namespace Prototype.Handlers.ViewHandlers
 {
     [Priority(PriorityStages.ViewHandling)]
-    public class PatientViewHandler : IMessageHandler
+    public class PatientReducedViewHandler : IMessageHandler
     {
-        private readonly IDocumentCollection<PatientView> _patients;
+        private readonly IDocumentCollection<PatientViewReduced> _patients;
 
-        public PatientViewHandler(ViewDatabase database)
+        public PatientReducedViewHandler(ViewDatabase database)
         {
-            _patients = database.Patients;
+            _patients = database.PatientsReduced;
         }
 
         public void Handle(PatientCreated e)
@@ -23,10 +22,7 @@ namespace Prototype.Handlers.ViewHandlers
             _patients.Save(patient =>
             {
                 patient.PatientId = e.Id;
-                patient.DateOfBirth = e.DateOfBirth;
-                patient.Level = e.Level;
-                patient.SiteId = e.SiteId;
-                patient.UpdateName(e.Name, e.Initials);
+                patient.Name = e.Name;
             });
         }
 
@@ -35,10 +31,7 @@ namespace Prototype.Handlers.ViewHandlers
             _patients.Update(e.Id, patient =>
             {
                 patient.PatientId = e.Id;
-                patient.DateOfBirth = e.DateOfBirth;
-                patient.Level = e.Level;
-                patient.SiteId = e.SiteId;
-                patient.UpdateName(e.Name, e.Initials);
+                patient.Name = e.Name;
             });
         }
 

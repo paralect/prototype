@@ -13,6 +13,7 @@ namespace Prototype.Databases
     public static class ViewCollections
     {
         public const String Patients = "patients";
+        public const String PatientsReduced = "patients_reduced";
     }
 
     public class ViewDatabase
@@ -44,6 +45,11 @@ namespace Prototype.Databases
         public IDocumentCollection<PatientView> Patients
         {
             get { return GetMongoCollection<PatientView>(ViewCollections.Patients); }
+        }
+
+        public IDocumentCollection<PatientViewReduced> PatientsReduced
+        {
+            get { return GetMongoCollection<PatientViewReduced>(ViewCollections.PatientsReduced); }
         }
     }
 }

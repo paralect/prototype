@@ -66,10 +66,12 @@
   <ItemGroup>
     <Compile Include="Common\Interceptors\LoggingInterceptor.cs" />
     <Compile Include="Configuration.cs" />
+    <Compile Include="Handlers\ViewHandlers\PatientReducedViewHandler.cs" />
     <Compile Include="Handlers\ViewHandlers\PatientViewHandler.cs" />
     <Compile Include="Databases\MongoLogsDatabase.cs" />
     <Compile Include="Databases\MongoViewDatabase.cs" />
     <Compile Include="Databases\MongoEventsDatabase.cs" />
+    <Compile Include="Handlers\WorkflowHandlers\PatientWorkflow.cs" />
     <Compile Include="Platform\Domain\Aggregate.cs" />
     <Compile Include="Domain\Aggregates\Patient\Commands\CreatePatient.cs" />
     <Compile Include="Domain\Aggregates\Patient\Commands\DeletePatient.cs" />
@@ -143,10 +145,10 @@
     <Compile Include="PriorityStages.cs" />
     <Compile Include="Databases\ViewDatabase.cs" />
     <Compile Include="Views\PatientView.cs" />
+    <Compile Include="Views\PatientViewReduced.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Handlers\IndexHandlers\" />
-    <Folder Include="Handlers\WorkflowHandlers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

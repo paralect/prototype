@@ -13,6 +13,15 @@ namespace Prototype.Views
         public String Name { get; set; }
         public String Initials { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public Int32 Level { get; set; }         
+        public Int32 Level { get; set; }
+
+        public String FullName { get; set; }
+
+        public void UpdateName(String name, String initials)
+        {
+            Name = name;
+            Initials = initials;
+            FullName = name + " " + initials;
+        }
     }
 }
