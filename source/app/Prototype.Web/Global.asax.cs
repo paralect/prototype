@@ -1,22 +1,10 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Conventions;
-using MongoDB.Bson.Serialization.Options;
 using Prototype.Common.Interceptors;
-using Prototype.Databases;
 using Prototype.Domain.Aggregates.Patient.Events;
 using Prototype.Platform.Dispatching;
-using Prototype.Platform.Domain;
-using Prototype.Platform.Domain.EventBus;
-using Prototype.Platform.Domain.Transitions.Interfaces;
-using Prototype.Platform.Domain.Transitions.Mongo;
-using Prototype.Platform.Mongo;
 using Prototype.Platform.Unity;
 using Microsoft.Practices.Unity;
-using Prototype.Views;
-using Uniform;
-using Uniform.Mongodb;
 using UnityServiceLocator = Microsoft.Practices.Unity.UnityServiceLocator;
 
 namespace Prototype.Web

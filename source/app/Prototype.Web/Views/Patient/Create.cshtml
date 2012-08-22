@@ -6,6 +6,11 @@
 
 <h2>Patients</h2>
 
+<a href="@Url.Action("Index", "Patient")">< Back</a>
+<br/>
+<br/>
+
+
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
     <div>
