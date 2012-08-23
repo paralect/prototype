@@ -16,6 +16,8 @@
     <div>
         <fieldset>
             <legend>Subject Information</legend>
+            
+            @Html.ValidationSummary()
 
             <div class="editor-label">
                 @Html.LabelFor(m => m.SubjectView.Name)

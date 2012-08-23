@@ -1,17 +1,17 @@
 ﻿@model Prototype.Web.Models.SitePageViewModel
 
 @{
-    ViewBag.Title = "Site";
+    ViewBag.Title = "Site History";
 }
 
-<h2>Sites</h2>
+<h2>Site History</h2>
 
-@Html.ActionLink("Add Site", "Create", "Site")
-<br/>
-<br/>
+<a href="@Url.Action("Index", "Site")">< Back</a> <br/> <br/>
+
 <table>
     <tr>
         <th>Id</th>
+        <th>Version</th>
         <th>Name</th>
         <th>Capacity</th>
         <th>Actions</th>
@@ -21,12 +21,11 @@
     {
         <tr>
             <td style="font-size: 11px; color: #bbbbbb;">@s.SiteId</td>
+            <td>@s.Version</td>
             <td>@s.Name</td>
             <td>@s.Capacity</td>
             <td>
-                <a href="@Url.Action("Edit", "Site", new { id = s.SiteId })">Edit</a>
-                <a href="@Url.Action("Delete", "Site", new { id = s.SiteId })">Delete</a>
-                <a href="@Url.Action("History", "Site", new { id = s.SiteId })">History</a>
+                <a href="@Url.Action("Restore", "Site", new { id = s.SiteId, version = s.Version })">Restore</a>
             </td>
         </tr>
     }

@@ -15,12 +15,12 @@ namespace Prototype.Views
         public string Id { get; set; }
 
         public string SubjectId { get; set; }
-        public Int32 Version { get; set; }
+        public int Version { get; set; }
 
         public string Name { get; set; }
         public string Initials { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public Int32 Level { get; set; }
+        public int Level { get; set; }
 
         public string FullName { get; set; }
 

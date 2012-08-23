@@ -20,21 +20,23 @@ namespace Prototype.Handlers.ViewHandlers
         public void Handle(SiteCreated e)
         {
             _sites.Save(s =>
-            {
-                s.SiteId = e.Id;
-                s.Name = e.Name;
-                s.Capacity = e.Capacity;
-            });
+                {
+                    s.Id = e.Id;
+                    s.SiteId = e.Id;
+                    s.Name = e.Name;
+                    s.Capacity = e.Capacity;
+                    s.Version = 1;
+                });
         }
 
         public void Handle(SiteUpdated e)
         {
             _sites.Update(e.Id, s =>
-            {
-                s.SiteId = e.Id;
-                s.Name = e.Name;
-                s.Capacity = e.Capacity;
-            });
+                {
+                    s.Name = e.Name;
+                    s.Capacity = e.Capacity;
+                    s.Version++;
+                });
         }
 
         public void Handle(SiteDeleted e)

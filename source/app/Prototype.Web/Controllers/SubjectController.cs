@@ -40,6 +40,13 @@ namespace Prototype.Web.Controllers
         [HttpPost]
         public ActionResult Create([Bind(Prefix  = "SubjectView")] SubjectView view)
         {
+            ValidateSubject(view);
+
+            if (ModelState.IsValid == false)
+            {
+                return View(CreateModel(view));
+            }
+
             _bus.Send(new CreateSubject
             {
                 Id = ObjectId.GenerateNewId().ToString(),
@@ -62,6 +69,13 @@ namespace Prototype.Web.Controllers
         [HttpPost]
         public ActionResult Edit([Bind(Prefix = "SubjectView")] SubjectView view)
         {
+            ValidateSubject(view);
+
+            if (ModelState.IsValid == false)
+            {
+                return View(CreateModel(view));
+            }
+
             _bus.Send(new UpdateSubject
             {
                 Id = view.SubjectId,
@@ -94,9 +108,9 @@ namespace Prototype.Web.Controllers
             });            
         }
 
-        public ActionResult Restore(string id, Int32 version)
+        public ActionResult Restore(string id, int version)
         {
-            string revisionId = String.Format("{0}/{1}", id, version);
+            var revisionId = string.Format("{0}/{1}", id, version);
             var revision = _viewDatabase.SubjectsHistory.FindOneById(revisionId);
 
             _bus.Send(new UpdateSubject
@@ -110,6 +124,25 @@ namespace Prototype.Web.Controllers
             });
 
             return RedirectToAction("Index");
+        }
+
+        private void ValidateSubject(SubjectView view)
+        {
+            if (string.IsNullOrEmpty(view.SiteId)) 
+                return;
+
+            var site = _viewDatabase.Sites.FindOneById(view.SiteId);
+
+            if (site == null) 
+                return;
+
+            var amountOfSubjects = _viewDatabase.Subjects.Count(Query.EQ("SiteId", view.SiteId));
+
+            if (site.Capacity <= amountOfSubjects)
+            {
+                ModelState.AddModelError("SiteId",
+                                         "Capacity limit is reached for selected site. Please select different site.");
+            }
         }
 
         private SubjectViewModel CreateModel(SubjectView view = null)
