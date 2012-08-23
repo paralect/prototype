@@ -37,12 +37,12 @@ namespace Prototype.Handlers.ViewHandlers.HistoryHandlers
         private void CreateRevision(string subjectId)
         {
             var subject = _subjects.GetById(subjectId);
-
             var historyId = string.Format("{0}/{1}", subject.SubjectId, subject.Version);
 
             _history.UpdateOrSave(historyId, history =>
             {
-                history.SubjectId = historyId;
+                history.SubjectId = subjectId;
+                history.Version = subject.Version;
                 history.Name = subject.Name;
                 history.Level = subject.Level;
                 history.SiteId = subject.SiteId;

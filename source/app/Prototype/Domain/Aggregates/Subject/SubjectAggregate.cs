@@ -23,10 +23,6 @@ namespace Prototype.Domain.Aggregates.Subject
 
         public void Update(UpdateSubject c)
         {
-            // Example of state manipulation
-            if (c.Level < State.Level)
-                throw new InvalidOperationException("Level should be higher than current");
-
             Apply(new SubjectUpdated
             {
                 Id = State.Id,

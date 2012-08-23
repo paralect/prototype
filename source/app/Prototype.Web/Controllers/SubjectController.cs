@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using MongoDB.Bson;
+using MongoDB.Driver.Builders;
 using Prototype.Databases;
 using Prototype.Domain.Aggregates.Subject.Commands;
 using Prototype.Views;
@@ -78,6 +79,36 @@ namespace Prototype.Web.Controllers
         public ActionResult Delete(String id)
         {
             _bus.Send(new DeleteSubject(id, "Removed by user from Subject page"));
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult History(String id)
+        {
+            var history = _viewDatabase.SubjectsHistory.Find(Query.EQ("SubjectId", id))
+                .SetSortOrder(SortBy.Descending("Version"))
+                .ToList();
+
+            return View(new SubjectPageViewModel
+            {
+                Subjects = history
+            });            
+        }
+
+        public ActionResult Restore(string id, Int32 version)
+        {
+            string revisionId = String.Format("{0}/{1}", id, version);
+            var revision = _viewDatabase.SubjectsHistory.FindOneById(revisionId);
+
+            _bus.Send(new UpdateSubject
+            {
+                Id = revision.SubjectId,
+                Initials = revision.Initials,
+                Level = revision.Level,
+                DateOfBirth = revision.DateOfBirth,
+                Name = revision.Name,
+                SiteId = revision.SiteId
+            });
+
             return RedirectToAction("Index");
         }
 

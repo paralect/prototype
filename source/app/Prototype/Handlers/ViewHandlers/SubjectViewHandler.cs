@@ -24,8 +24,9 @@ namespace Prototype.Handlers.ViewHandlers
         {
             _subjects.Save(s =>
             {
-                s.UpdateName(e.Name, e.Initials);
+                s.Id = e.Id;
                 s.SubjectId = e.Id;
+                s.UpdateName(e.Name, e.Initials);
                 s.DateOfBirth = e.DateOfBirth;
                 s.Level = e.Level;
                 s.SiteId = e.SiteId;
@@ -38,7 +39,6 @@ namespace Prototype.Handlers.ViewHandlers
         {
             _subjects.Update(e.Id, s =>
             {
-                s.SubjectId = e.Id;
                 s.DateOfBirth = e.DateOfBirth;
                 s.Level = e.Level;
                 s.UpdateName(e.Name, e.Initials);

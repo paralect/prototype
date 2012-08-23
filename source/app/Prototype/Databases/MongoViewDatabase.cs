@@ -66,9 +66,19 @@ namespace Prototype.Databases
             get { return GetCollection<SubjectView>(ViewCollections.Subjects); }
         }
 
+        public ReadonlyMongoCollection<SubjectView> SubjectsHistory
+        {
+            get { return GetCollection<SubjectView>(ViewCollections.SubjectsHistory); }
+        }
+
         public ReadonlyMongoCollection<SiteView> Sites
         {
             get { return GetCollection<SiteView>(ViewCollections.Sites); }
+        }
+
+        public ReadonlyMongoCollection<SiteView> SitesHistory
+        {
+            get { return GetCollection<SiteView>(ViewCollections.SitesHistory); }
         }
     }
 }

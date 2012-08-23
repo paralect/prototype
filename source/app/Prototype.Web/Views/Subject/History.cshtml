@@ -1,17 +1,17 @@
 ﻿@model Prototype.Web.Models.SubjectPageViewModel
 
 @{
-    ViewBag.Title = "Subjects";
+    ViewBag.Title = "Subject History";
 }
 
-<h2>Subjects</h2>
+<h2>Subject History</h2>
 
-@Html.ActionLink("Add Subject", "Create", "Subject")
-<br/>
-<br/>
+<a href="@Url.Action("Index", "Subject")">< Back</a> <br/> <br/>
+
 <table>
     <tr>
         <th>Id</th>
+        <th>Version</th>
         <th>Name</th>
         <th>Initials</th>
         <th>Level</th>
@@ -23,14 +23,13 @@
     {
         <tr>
             <td style="font-size: 11px; color: #bbbbbb;">@s.SubjectId</td>
+            <td>@s.Version</td>
             <td>@s.Name</td>
             <td>@s.Initials</td>
             <td>@s.Level</td>
             <td>@s.SiteName</td>
             <td>
-                <a href="@Url.Action("Edit", "Subject", new { id = s.SubjectId })">Edit</a>
-                <a href="@Url.Action("Delete", "Subject", new { id = s.SubjectId })">Delete</a>
-                <a href="@Url.Action("History", "Subject", new { id = s.SubjectId })">History</a>
+                <a href="@Url.Action("Restore", "Subject", new { id = s.SubjectId, version = s.Version })">Restore</a>
             </td>
         </tr>
     }
