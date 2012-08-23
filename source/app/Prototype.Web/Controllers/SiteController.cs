@@ -24,9 +24,9 @@ namespace Prototype.Web.Controllers
             var subjects = _viewDatabase.Sites.FindAll().ToList();
 
             return View(new SitePageViewModel
-                {
-                    Sites = subjects
-                });
+            {
+                Sites = subjects
+            });
         }
 
         public ActionResult Create()
@@ -38,11 +38,11 @@ namespace Prototype.Web.Controllers
         public ActionResult Create(SiteView view)
         {
             _bus.Send(new CreateSite
-                {
-                    Id = ObjectId.GenerateNewId().ToString(),
-                    Name = view.Name,
-                    Capacity = view.Capacity
-                });
+            {
+                Id = ObjectId.GenerateNewId().ToString(),
+                Name = view.Name,
+                Capacity = view.Capacity
+            });
 
             return RedirectToAction("Index");
         }

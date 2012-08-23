@@ -15,7 +15,7 @@
         <th>Name</th>
         <th>Initials</th>
         <th>Level</th>
-        <th>Site</th>
+        <th>SiteId</th>
         <th>Actions</th>
     </tr>
 
@@ -27,7 +27,7 @@
             <td>@s.Name</td>
             <td>@s.Initials</td>
             <td>@s.Level</td>
-            <td>@s.SiteName</td>
+            <td style="font-size: 11px; color: #bbbbbb;">@s.SiteId</td>
             <td>
                 <a href="@Url.Action("Restore", "Subject", new { id = s.SubjectId, version = s.Version })">Restore</a>
             </td>
